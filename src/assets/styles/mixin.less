@@ -1,0 +1,82 @@
+.font-dpx(@font-size) { // dpr==1
+  font-size: @font-size*2dpx;
+}
+
+.max-lines(@num:2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @num;
+  -webkit-box-orient: vertical;
+}
+
+.bg-image(@url) {
+  background-image: url("@{url}@2x.png");
+  @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2) {
+    background-image: url("@{url}@3x.png");
+  }
+}
+.pw {
+  display: table;
+  clear: both;
+  content: "";
+  position: relative;
+  &:after {
+    zoom: 1;
+  }
+}
+.fl(@f:left) {
+  float: @f;
+  display: block;
+}
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+}
+
+// 宽高
+.wh(@width, @height) {
+  width: @width;
+  height: @height;
+}
+
+// flex 布局和字元素对齐方式
+.flex-justify(@type: space-between) {
+  display: flex;
+  justify-content: @type;
+}
+
+// 字体大小和颜色
+.size-color(@size, @color) {
+  font-size: @size;
+  color: @color;
+}
+
+// 图片圆角
+.borderRadius(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.fl(@f:left) {
+  float: @f;
+  display: block;
+}
+
+.fleft {
+  .fl();
+}
+
+.fright {
+  .fl(@f: right);
+}
+
+@lightRed: #ffaaaa;
+@heavyRed: #f00000;
+@btnRed: #df0211;
+
+
