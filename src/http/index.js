@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const Http = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'http://zhangmuchen.top:8000',
   timeout: 60 * 1000
 })
 

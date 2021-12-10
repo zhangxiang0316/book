@@ -29,7 +29,7 @@
           @click="cellClick(item)"
         >
           <template #icon>
-            <img v-lazy="item.imgUrl" style="width: 40px;height: 40px;margin-right: 10px">
+            <van-image :src="item.imgUrl" width="30" height="40" style="margin-right: 10px"></van-image>
           </template>
         </van-cell>
       </van-list>

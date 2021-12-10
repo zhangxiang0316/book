@@ -70,7 +70,6 @@ export default {
       bookName: '',
       menuUrl: '',
       imgUrl: '',
-
       show: false,
       bookDetail: {},
       title: '',

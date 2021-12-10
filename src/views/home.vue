@@ -10,8 +10,6 @@
       :safe-area-inset-top="true"
       :placeholder="true"
       title="首页"
-      right-text="历史"
-      @click-right="$router.push({ name: 'history' })"
     />
     <van-pull-refresh v-model="refreshing" @refresh="loadData">
       <div style="padding: 0 10px">
@@ -21,6 +19,21 @@
       <van-tag v-for="item in typeList" :key="item.value" round type="primary" @click="tagClick(item)">
         {{ item.name }}
       </van-tag>
+      <van-sidebar>
+        <van-sidebar-item title="历史" />
+      </van-sidebar>
+      <div class="recommand-wrap">
+        <div ref="wrapper">
+          <ul ref="cont" class="cont">
+            <li v-for="item of nowLookPage" :key="item.detailUrl" class="cont-item">
+              <div class="cont-img " @click="toDetail(item)">
+                <img class="img" :src="item.imgUrl">
+              </div>
+              <div class="cont-dest">{{ item.bookName }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div v-if="detail.hot">
         <van-sidebar>
           <van-sidebar-item :title="detail.hot.name" />
@@ -52,7 +65,7 @@
         <van-cell v-for="(item,index) in detail.top.list" :key="index" :title="`${item.name}`" :label="item.author" :value="item.type " @click="cellClick(item)" />
       </div>
       <div v-if="detail.block">
-        <van-tabs v-model="active">
+        <van-tabs v-model="active" sticky>
           <van-tab v-for="(item,index) in detail.block.list" :key="index" :title="item.name" />
         </van-tabs>
         <div class="van-hairline--top" />
@@ -74,12 +87,14 @@
           <van-cell v-else :key="item.bookMenuUrl" :title="`${item.name}`" :label="item.author" :value="item.type " @click="cellClick(item)" />
         </template>
       </div>
-
     </van-pull-refresh>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+
+import {mapActions, mapGetters} from 'vuex'
+import BScroll from 'better-scroll'
 
 export default {
   name: 'Home',
@@ -103,11 +118,45 @@ export default {
       ]
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'nowLookPage'
+    ])
+  },
   created() {
     this.loadData()
   },
+  mounted() {
+    this.$nextTick(() => {
+      const timer = setTimeout(() => { // 其实我也不想写这个定时器的，这相当于又嵌套了一层$nextTick，但是不这么写会失败
+        if (timer) {
+          clearTimeout(timer)
+          this.verScroll()
+        }
+      }, 0)
+    })
+  },
   methods: {
+    ...mapActions([
+      'changeSetting'
+    ]),
+    verScroll() {
+      const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
+      this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
+      this.$nextTick(() => {
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            startX: 0, // 配置的详细信息请参考better-scroll的官方文档，这里不再赘述
+            click: true,
+            scrollX: true,
+            scrollY: false,
+            eventPassthrough: 'vertical'
+          })
+        } else {
+          this.scroll.refresh() // 如果dom结构发生改变调用该方法
+        }
+      })
+    },
     cellClick(item) {
       this.$router.push({ name: 'menuList', query: { menuUrl: item.menuUrl, name: item.name, from: item.from }})
     },
@@ -118,6 +167,21 @@ export default {
       this.$http.get('/biquge/home').then(res => {
         this.detail = res
         this.refreshing = false
+      })
+    },
+    toDetail(item) {
+      this.changeSetting({
+        key: 'detailQuery',
+        value: {
+          detailUrl: item.detailUrl,
+          menuUrl: item.menuUrl,
+          bookName: item.bookName,
+          from: item.from,
+          imgUrl: item.imgUrl
+        }
+      })
+      this.$router.push({
+        name: 'bookDetail'
       })
     }
   }
@@ -137,6 +201,37 @@ export default {
 }
 .van-sidebar-item {
   padding: 10px 12px;
+}
+
+.recommand-wrap {
+  height: 130px;
+  padding-bottom: 130px;
+  background: #fff;
+  width: 100%;
+  .cont {
+    list-style: none;
+    white-space: nowrap;
+    font-size: 12px;
+    text-align: center;
+    .cont-item {
+      position: relative;
+      display: inline-block;
+      width: 80px;
+      margin-left: 20px;
+      .cont-img {
+        overflow: hidden;
+        width: 80px;
+        height: 100px;
+        padding-bottom: 100%;
+        .img {
+          width: 100%;
+        }
+      }
+      .cont-dest {
+        margin: 10px 0;
+      }
+    }
+  }
 }
 
 </style>
