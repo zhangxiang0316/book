@@ -88,7 +88,7 @@ export default {
         this.refreshing = false
         this.page++
         this.list.push(...res)
-      }).catch(()=>{
+      }).catch(() => {
         this.$loading.hide()
         this.$toast('加载错误')
       })

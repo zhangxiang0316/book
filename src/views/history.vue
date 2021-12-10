@@ -35,7 +35,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapGetters,mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'History',

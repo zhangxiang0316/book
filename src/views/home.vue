@@ -58,7 +58,7 @@
         <div class="van-hairline--top" />
         <template v-for="item in detail.block.list[active].list">
           <div v-if="item.imgUrl" :key="item.bookMenuUrl" style="display: flex;padding: 5px 10px" @click="cellClick(item)">
-<!--            <img v-lazy="item.imgUrl" style="height: 80px;width: 60px;">-->
+            <!--            <img v-lazy="item.imgUrl" style="height: 80px;width: 60px;">-->
             <van-image
               width="60"
               height="80"
