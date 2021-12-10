@@ -26,10 +26,10 @@
         <div ref="wrapper">
           <ul ref="cont" class="cont">
             <li v-for="item of nowLookPage" :key="item.detailUrl" class="cont-item">
-              <div class="cont-img " @click="toDetail(item)">
-                <img class="img" :src="item.imgUrl">
+              <div v-longPress="deleteItem" class="cont-img " >
+                <img class="img" :src="item.imgUrl" @click="toDetail(item)">
               </div>
-              <div class="cont-dest">{{ item.bookName }}</div>
+              <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
             </li>
           </ul>
         </div>
@@ -71,7 +71,6 @@
         <div class="van-hairline--top" />
         <template v-for="item in detail.block.list[active].list">
           <div v-if="item.imgUrl" :key="item.bookMenuUrl" style="display: flex;padding: 5px 10px" @click="cellClick(item)">
-            <!--            <img v-lazy="item.imgUrl" style="height: 80px;width: 60px;">-->
             <van-image
               width="60"
               height="80"
@@ -93,7 +92,7 @@
 
 <script type="text/ecmascript-6">
 
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BScroll from 'better-scroll'
 
 export default {
@@ -140,6 +139,9 @@ export default {
     ...mapActions([
       'changeSetting'
     ]),
+    deleteItem() {
+      console.log('222222222')
+    },
     verScroll() {
       const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
       this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
@@ -228,6 +230,7 @@ export default {
         }
       }
       .cont-dest {
+        width: 80px;
         margin: 10px 0;
       }
     }
