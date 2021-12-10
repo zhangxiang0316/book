@@ -4,8 +4,14 @@
 * 备注：
 */
 <template>
-  <van-popup v-model="show" position="left" :style="{width:'80%',height:'100%'}">
-    <van-cell v-for="(item,index) in list" :id="`list${index}`" :key="index" :title="item.name" @click="cellClick(item)" />
+  <van-popup v-model="show" position="left" :style="{width:'80%',height:'90%'}" style="margin-top: 43px">
+    <van-cell
+      v-for="(item,index) in list"
+      :id="`list${index}`"
+      :key="index"
+      :title="item.name"
+      @click="cellClick(item)"
+    />
   </van-popup>
 </template>
 
@@ -47,9 +53,12 @@ export default {
   created() {
     setTimeout(() => {
       this.loadData()
-    }, 2000)
+    }, 1000)
   },
   methods: {
+    onRefresh() {
+
+    },
     loadData() {
       if (this.list.length) {
         const index = this.list.findIndex(item => item.url === this.nowUrl)
@@ -60,12 +69,15 @@ export default {
           return
         }
       }
-      this.$http.get('/getMenuList', { params: {
-        bookUrl: this.url,
-        type: this.from
-      }}).then(res => {
+      this.$http.get('/getMenuList', {
+        params: {
+          bookUrl: this.url,
+          type: this.from
+        }
+      }).then(res => {
         this.list = res.list
         const index = this.list.findIndex(item => item.url === this.nowUrl)
+        this.setCurrentPageData()
         this.$nextTick(() => {
           this.show && document.getElementById(`list${index}`).scrollIntoView()
         })

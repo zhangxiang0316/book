@@ -13,27 +13,42 @@
     />
     <van-pull-refresh v-model="refreshing" @refresh="loadData">
       <div style="padding: 0 10px">
-        <van-search v-model="bookName" shape="round" placeholder="请输入" @search="$router.push({name:'search',query:{bookName:bookName}})" />
+        <van-search
+          v-model="bookName"
+          shape="round"
+          placeholder="请输入"
+          @search="$router.push({name:'search',query:{bookName:bookName}})"
+        />
       </div>
       <van-tag round type="primary" @click="$router.push('/topFifty')">排行榜</van-tag>
       <van-tag v-for="item in typeList" :key="item.value" round type="primary" @click="tagClick(item)">
         {{ item.name }}
       </van-tag>
-      <van-sidebar>
-        <van-sidebar-item title="历史" />
-      </van-sidebar>
-      <div class="recommand-wrap">
-        <div ref="wrapper">
-          <ul ref="cont" class="cont">
-            <li v-for="item of nowLookPage" :key="item.detailUrl" class="cont-item">
-              <div v-longPress="deleteItem" class="cont-img " >
-                <img class="img" :src="item.imgUrl" @click="toDetail(item)">
-              </div>
-              <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
-            </li>
-          </ul>
+      <div v-if="nowLookPage.length">
+        <van-sidebar>
+          <van-sidebar-item title="我的书架" />
+        </van-sidebar>
+        <div style="border-bottom: 1px solid #eee" />
+        <div class="recommand-wrap">
+          <div ref="wrapper">
+            <ul ref="cont" class="cont">
+              <li
+                v-for="item of nowLookPage"
+                :key="item.detailUrl"
+                class="cont-item"
+                @dblclick="deleteItem(item)"
+                @click="toDetail(item)"
+              >
+                <div class="cont-img ">
+                  <img class="img" :src="item.imgUrl">
+                </div>
+                <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
+      <van-loading v-show="loading" style="text-align: center" type="spinner" color="#1989fa">加载中...</van-loading>
       <div v-if="detail.hot">
         <van-sidebar>
           <van-sidebar-item :title="detail.hot.name" />
@@ -51,7 +66,10 @@
               <div style="flex: 1;max-height: 100px;margin-left: 8px">
                 <div style="font-size: 16px;line-height: 25px">{{ item.name }}</div>
                 <div style="font-size: 14px;line-height: 28px">{{ item.author }}</div>
-                <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">{{ item.disc.trim() }}</div>
+                <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">{{
+                  item.disc.trim()
+                }}
+                </div>
               </div>
             </div>
           </van-grid-item>
@@ -61,16 +79,28 @@
         <van-sidebar>
           <van-sidebar-item :title="detail.top.name" />
         </van-sidebar>
-        <div class="van-hairline--top" />
-        <van-cell v-for="(item,index) in detail.top.list" :key="index" :title="`${item.name}`" :label="item.author" :value="item.type " @click="cellClick(item)" />
+        <div style="border-bottom: 1px solid #eee" />
+        <van-cell
+          v-for="(item,index) in detail.top.list"
+          :key="index"
+          :title="`${item.name}`"
+          :label="item.author"
+          :value="item.type "
+          @click="cellClick(item)"
+        />
       </div>
       <div v-if="detail.block">
-        <van-tabs v-model="active" sticky>
+        <van-tabs v-model="active">
           <van-tab v-for="(item,index) in detail.block.list" :key="index" :title="item.name" />
         </van-tabs>
         <div class="van-hairline--top" />
         <template v-for="item in detail.block.list[active].list">
-          <div v-if="item.imgUrl" :key="item.bookMenuUrl" style="display: flex;padding: 5px 10px" @click="cellClick(item)">
+          <div
+            v-if="item.imgUrl"
+            :key="item.bookMenuUrl"
+            style="display: flex;padding: 5px 10px"
+            @click="cellClick(item)"
+          >
             <van-image
               width="60"
               height="80"
@@ -83,7 +113,14 @@
               <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">{{ item.disc.trim() }}</div>
             </div>
           </div>
-          <van-cell v-else :key="item.bookMenuUrl" :title="`${item.name}`" :label="item.author" :value="item.type " @click="cellClick(item)" />
+          <van-cell
+            v-else
+            :key="item.bookMenuUrl"
+            :title="`${item.name}`"
+            :label="item.author"
+            :value="item.type "
+            @click="cellClick(item)"
+          />
         </template>
       </div>
     </van-pull-refresh>
@@ -93,6 +130,7 @@
 <script type="text/ecmascript-6">
 
 import { mapActions, mapGetters } from 'vuex'
+import { Dialog } from 'vant'
 import BScroll from 'better-scroll'
 
 export default {
@@ -101,6 +139,7 @@ export default {
   props: {},
   data() {
     return {
+      loading: true,
       refreshing: false,
       active: 0,
       bookName: '',
@@ -139,12 +178,23 @@ export default {
     ...mapActions([
       'changeSetting'
     ]),
-    deleteItem() {
-      console.log('222222222')
+    deleteItem(item) {
+      Dialog.alert({
+        message: `确认删除${item.name}`
+      }).then(() => {
+        const index = this.nowLookPage.findIndex(item => item.menuUrl === this.menuUrl)
+        this.nowLookPage.splice(index, 1)
+        this.changeSetting({
+          key: 'nowLookPage',
+          value: this.nowLookPage
+        })
+      }).catch(() => {
+        // on cancel
+      })
     },
     verScroll() {
-      const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
-      this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
+      // const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
+      // this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
       this.$nextTick(() => {
         if (!this.scroll) {
           this.scroll = new BScroll(this.$refs.wrapper, {
@@ -167,6 +217,7 @@ export default {
     },
     loadData() {
       this.$http.get('/biquge/home').then(res => {
+        this.loading = false
         this.detail = res
         this.refreshing = false
       })
@@ -201,35 +252,42 @@ export default {
   padding: 5px 10px;
   margin: 10px 10px 0 10px;
 }
+
 .van-sidebar-item {
   padding: 10px 12px;
 }
 
 .recommand-wrap {
   height: 130px;
+  margin-top: 10px;
   padding-bottom: 130px;
   background: #fff;
   width: 100%;
+
   .cont {
     list-style: none;
     white-space: nowrap;
     font-size: 12px;
-    text-align: center;
+
     .cont-item {
       position: relative;
       display: inline-block;
       width: 80px;
       margin-left: 20px;
+
       .cont-img {
         overflow: hidden;
         width: 80px;
         height: 100px;
         padding-bottom: 100%;
+
         .img {
           width: 100%;
         }
       }
+
       .cont-dest {
+        text-align: center;
         width: 80px;
         margin: 10px 0;
       }

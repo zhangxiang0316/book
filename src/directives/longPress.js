@@ -1,7 +1,7 @@
 const longPress = {
   bind: function(el, binding, vNode) {
     if (typeof binding.value !== 'function') {
-      throw 'callback must be a function'
+      console.log('callback must be a function')
     }
     // 定义变量
     let pressTimer = null

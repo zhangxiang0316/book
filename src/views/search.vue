@@ -11,7 +11,6 @@
       :placeholder="true"
       title="图书搜索"
       left-arrow
-      right-text="历史"
       @click-left="$router.back()"
     />
     <van-search v-model="bookName" style="position: fixed;top:45px;width: 100%;z-index: 10" clearable shape="round" placeholder="请输入" @search="searchBook" />
