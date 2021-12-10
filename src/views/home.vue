@@ -193,8 +193,8 @@ export default {
       })
     },
     verScroll() {
-      // const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
-      // this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
+      const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
+      this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
       this.$nextTick(() => {
         if (!this.scroll) {
           this.scroll = new BScroll(this.$refs.wrapper, {

@@ -77,7 +77,6 @@ export default {
       }).then(res => {
         this.list = res.list
         const index = this.list.findIndex(item => item.url === this.nowUrl)
-        this.setCurrentPageData()
         this.$nextTick(() => {
           this.show && document.getElementById(`list${index}`).scrollIntoView()
         })

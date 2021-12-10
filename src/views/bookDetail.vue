@@ -178,6 +178,8 @@ export default {
           })
         }
       }).catch(() => {
+        this.refreshing = false
+        this.loading = false
         flag && this.$loading.hide()
         this.$toast.fail('加载失败')
       })
