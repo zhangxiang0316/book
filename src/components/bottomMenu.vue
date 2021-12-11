@@ -57,10 +57,8 @@ export default {
     ]),
     change(index) {
       this.show = false
-      this.$emit('change', index)
       switch (index) {
         case 0:
-          this.$emit('change', index)
           break
         case 1:
           if (this.isNight) {
@@ -74,13 +72,12 @@ export default {
           }
           break
         case 2:
-          this.$emit('change', index)
           break
       }
-
+      this.$emit('change', index)
       setTimeout(() => {
         this.active = -1
-      }, 1000)
+      }, 10)
     }
   }
 }

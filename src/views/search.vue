@@ -13,7 +13,7 @@
       left-arrow
       @click-left="$router.back()"
     />
-    <van-search v-model="bookName" style="position: fixed;top:45px;width: 100%;z-index: 10" clearable shape="round" placeholder="请输入" @search="searchBook" />
+    <van-search v-model="bookName" autofocus style="position: fixed;top:45px;width: 100%;z-index: 10" clearable shape="round" placeholder="请输入" @search="searchBook" />
     <div style="margin-top: 46px;width: 100%">
       <van-cell
         v-for="(item,index) in list"
@@ -50,17 +50,19 @@ export default {
   },
   computed: {},
   activated() {
-    if (this.bookName !== this.$route.query.bookName) {
-      this.bookName = this.$route.query.bookName
-      this.searchBook()
-    }
+    // if (this.bookName !== this.$route.query.bookName) {
+    //   this.bookName = this.$route.query.bookName
+    //   this.searchBook()
+    // }
   },
   methods: {
     cellClick(item) {
       this.$router.push({ name: 'menuList', query: { menuUrl: item.menuUrl, name: item.name, from: item.from }})
-      console.log(item)
     },
     searchBook() {
+      if (!this.bookName) {
+        return
+      }
       this.$loading.show()
       this.list = []
       this.$http.get('/biquge/search', {

@@ -79,7 +79,6 @@ export default {
       refreshing: false
     }
   },
-
   computed: {
     ...mapGetters([
       'backgroundColor',

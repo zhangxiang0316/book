@@ -12,7 +12,8 @@ import store from './store'
 import { Lazyload } from 'vant'
 
 import directives from './directives'
-
+import VConsole from 'vconsole'
+new VConsole()
 Vue.use(Lazyload)
 Vue.use(Vant)
 Vue.use(Loading)

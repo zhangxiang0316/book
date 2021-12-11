@@ -7,7 +7,6 @@
   <van-popup
     v-model="show"
     :close-on-click-overlay="false"
-    get-container="#app"
     :overlay-style="{'background-color': '#00000055'}"
   >
     <van-loading v-if="show" vertical type="spinner" text-color="#91DCD9" color="#91DCD9">加载中...</van-loading>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive :exclude="['BookDetail']">
+    <keep-alive :exclude="['BookDetail','Search']">
       <router-view />
     </keep-alive>
   </div>

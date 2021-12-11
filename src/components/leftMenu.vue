@@ -4,22 +4,30 @@
 * 备注：
 */
 <template>
-  <van-popup v-model="show" position="left" :style="{width:'80%',height:'90%'}" style="margin-top: 43px">
-    <van-cell
-      v-for="(item,index) in list"
-      :id="`list${index}`"
-      :key="index"
-      :title="item.name"
-      @click="cellClick(item)"
+  <van-popup v-model="show" position="left" :style="{width:'80%'}" style="margin-top: 46px">
+    <virtual-list
+      :start="selectIndex"
+      style="height:1000px; overflow-y: auto;"
+      :data-key="'url'"
+      :keeps="30"
+      :data-sources="list"
+      :data-component="itemComponent"
+      :extra-props="{
+        cellClick:cellClick
+      }"
     />
   </van-popup>
 </template>
 
 <script type="text/ecmascript-6">
+import virtualList from 'vue-virtual-scroll-list'
+import menuItem from './menuItem'
 
 export default {
   name: 'LeftMenu',
-  components: {},
+  components: {
+    virtualList
+  },
   props: {
     url: {
       type: String,
@@ -36,7 +44,9 @@ export default {
   },
   data() {
     return {
+      itemComponent: menuItem,
       list: [],
+      selectIndex: 0,
       show: false
     }
   },
@@ -53,7 +63,7 @@ export default {
   created() {
     setTimeout(() => {
       this.loadData()
-    }, 1000)
+    }, 1500)
   },
   methods: {
     onRefresh() {
@@ -61,13 +71,10 @@ export default {
     },
     loadData() {
       if (this.list.length) {
-        const index = this.list.findIndex(item => item.url === this.nowUrl)
-        if (index !== -1) {
-          this.$nextTick(() => {
-            this.show && document.getElementById(`list${index}`).scrollIntoView()
-          })
-          return
-        }
+        this.$nextTick(() => {
+          this.selectIndex = this.list.findIndex(item => item.url === this.nowUrl)
+        })
+        return
       }
       this.$http.get('/getMenuList', {
         params: {
@@ -76,9 +83,8 @@ export default {
         }
       }).then(res => {
         this.list = res.list
-        const index = this.list.findIndex(item => item.url === this.nowUrl)
         this.$nextTick(() => {
-          this.show && document.getElementById(`list${index}`).scrollIntoView()
+          this.selectIndex = this.list.findIndex(item => item.url === this.nowUrl)
         })
       })
     },
