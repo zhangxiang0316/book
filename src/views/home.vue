@@ -40,8 +40,9 @@
                 @dblclick="deleteItem(item)"
                 @click="toDetail(item)"
               >
-                <div class="cont-img ">
-                  <img class="img" :src="item.imgUrl">
+                <div class="cont-img">
+                  <van-image width="80" height="100" lazy-load radius="10" class="img" :src="item.imgUrl" />
+                  <div class="from">{{ item.from }}</div>
                 </div>
                 <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
               </li>
@@ -49,7 +50,8 @@
           </div>
         </div>
       </div>
-      <van-loading v-show="loading" style="text-align: center;margin-top: 20px" type="spinner" color="#1989fa">加载中...</van-loading>
+      <van-loading v-show="loading" style="text-align: center;margin-top: 20px" type="spinner" color="#1989fa">加载中...
+      </van-loading>
       <div v-if="detail.hot">
         <van-sidebar>
           <van-sidebar-item :title="detail.hot.name" />
@@ -62,14 +64,14 @@
                 width="80"
                 height="100"
                 lazy-load
+                radius="10"
                 :src="item.imgUrl"
               />
               <div style="flex: 1;max-height: 100px;margin-left: 8px">
                 <div style="font-size: 16px;line-height: 25px">{{ item.name }}</div>
                 <div style="font-size: 14px;line-height: 28px">{{ item.author }}</div>
-                <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">{{
-                  item.disc.trim()
-                }}
+                <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">
+                  {{ item.disc.trim() }}
                 </div>
               </div>
             </div>
@@ -103,8 +105,9 @@
             @click="cellClick(item)"
           >
             <van-image
-              width="60"
+              width="70"
               height="80"
+              radius="5"
               lazy-load
               :src="item.imgUrl"
             />
@@ -166,6 +169,9 @@ export default {
     this.loadData()
   },
   mounted() {
+
+  },
+  activated() {
     this.$nextTick(() => {
       const timer = setTimeout(() => { // 其实我也不想写这个定时器的，这相当于又嵌套了一层$nextTick，但是不这么写会失败
         if (timer) {
@@ -224,6 +230,10 @@ export default {
         this.loading = false
         this.detail = res
         this.refreshing = false
+      }).catch(() => {
+        this.$toast('加载失败，请重新尝试')
+        this.refreshing = false
+        this.loading = false
       })
     },
     toDetail(item) {
@@ -280,6 +290,7 @@ export default {
       margin-left: 20px;
 
       .cont-img {
+        position: relative;
         overflow: hidden;
         width: 80px;
         height: 100px;
@@ -287,6 +298,22 @@ export default {
 
         .img {
           width: 100%;
+        }
+        .from{
+          position: absolute;    /*绝对定位*/
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          width: 80px;
+          background-color: #FF5722;
+          color: #fff;
+          -moz-transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+          -o-transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+          left: -18px;
+          top: 9px;
         }
       }
 
