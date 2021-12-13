@@ -29,7 +29,7 @@
           @click="cellClick(item)"
         >
           <template #icon>
-            <van-image :src="item.imgUrl" width="30" height="40" style="margin-right: 10px" />
+            <van-image :src="item.imgUrl" radius="3" width="32" height="40" style="margin-right: 10px" />
           </template>
         </van-cell>
       </van-list>

@@ -25,7 +25,8 @@
         <template #icon>
           <van-image
             style="margin-right: 10px"
-            width="40"
+            width="32"
+            radius="3"
             height="40"
             lazy-load
             :src="item.imgUrl"
@@ -50,10 +51,6 @@ export default {
   },
   computed: {},
   activated() {
-    // if (this.bookName !== this.$route.query.bookName) {
-    //   this.bookName = this.$route.query.bookName
-    //   this.searchBook()
-    // }
   },
   methods: {
     cellClick(item) {
@@ -114,6 +111,14 @@ export default {
         this.$loading.hide()
       })
       this.$http.get('/xbiqupao/search', {
+        params: {
+          name: this.bookName
+        }
+      }).then(res => {
+        this.list = [...this.list, ...res]
+        this.$loading.hide()
+      })
+      this.$http.get('/biququ/search', {
         params: {
           name: this.bookName
         }

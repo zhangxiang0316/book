@@ -105,7 +105,7 @@
             @click="cellClick(item)"
           >
             <van-image
-              width="70"
+              width="66"
               height="80"
               radius="5"
               lazy-load

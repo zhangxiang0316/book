@@ -14,7 +14,7 @@
       @click-left="$router.back()"
     />
     <div v-if="info.name" style="padding: 10px;display: flex">
-      <van-image width="85" height="100" :src="info.imgUrl" />
+      <van-image radius="10" width="85" height="100" :src="info.imgUrl" />
       <div style="line-height: 25px;margin-left: 10px">
         <div style="font-size: 20px;font-weight: 800">{{ info.name }}</div>
         <div style="font-size: 14px">{{ info.author }}</div>
@@ -22,36 +22,37 @@
         <div style="font-size: 14px">{{ info.updataTime }}</div>
       </div>
     </div>
-    <div v-if="info.name" style="padding: 0 10px 20px 10px;font-size: 13px;line-height: 25px">
+    <div v-if="info.name" class="van-multi-ellipsis--l3" style="padding: 0 10px;font-size: 13px;line-height: 25px">
       简介： {{ info.disc }}
     </div>
-    <van-cell v-for="(item,index) in showList" :key="index" :title="item.name" @click="cellClick(item)" />
-    <div style="height: 50px" />
-    <van-pagination
-      v-model="currentPage"
-      style="position: fixed;bottom: 0;width: 100%;;background: white"
-      :total-items="pageCount"
-      :items-per-page="pageSize"
-      mode="simple"
-      @change="change"
+    <virtual-list
+      style="height:1000px; overflow-y: auto;"
+      :data-key="'url'"
+      :keeps="30"
+      :data-sources="list"
+      :data-component="itemComponent"
+      :extra-props="{
+        cellClick:cellClick
+      }"
     />
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapActions } from 'vuex'
+import virtualList from 'vue-virtual-scroll-list'
+import menuItem from '../components/menuItem'
 export default {
   name: 'MenuList',
-  components: {},
+  components: {
+    virtualList
+  },
   props: {},
   data() {
     return {
+      itemComponent: menuItem,
       list: [],
       menuUrl: '',
-      showList: [],
-      currentPage: 1,
-      pageCount: 0,
-      pageSize: 500,
       bookUrl: '',
       from: '',
       title: '',
@@ -65,6 +66,7 @@ export default {
       this.from = this.$route.query.from
       this.title = this.$route.query.name
       this.info = {}
+      this.list = []
       this.loadData()
     }
   },
@@ -76,10 +78,6 @@ export default {
     ...mapActions([
       'changeSetting'
     ]),
-    change() {
-      this.showList = this.list.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
-      window.scrollTo(0, 0)
-    },
     loadData() {
       this.showList = []
       this.$loading.show()
@@ -92,9 +90,6 @@ export default {
         this.$loading.hide()
         this.list = res.list
         this.info = res.info
-        this.pageCount = this.list.length
-        this.showList = this.list.slice(0, this.pageSize)
-        window.scrollTo(0, 0)
       }).catch(() => {
         this.$loading.hide()
         this.$toast('加载出错')
