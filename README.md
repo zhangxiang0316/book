@@ -4,7 +4,7 @@
 
 前端采用vue 展示
 
-[在线地址](http://zhangmuchen.top/book)
+[在线地址](http://book.zhangmuchen.top)
 
 Android App 扫码下载
 
