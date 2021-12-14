@@ -2,7 +2,7 @@
   <div id="app">
     <transition :name="transitionName">
       <keep-alive :exclude="['BookDetail']">
-        <router-view/>
+        <router-view />
       </keep-alive>
     </transition>
   </div>
@@ -20,8 +20,6 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log('to:', to)
-      console.log('from', from)
       if (from.meta && to.meta) {
         if (from.meta.index <= to.meta.index) {
           this.transitionName = 'slide-left'
