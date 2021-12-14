@@ -2,7 +2,7 @@
   <div id="app">
     <transition :name="transitionName">
       <keep-alive :exclude="['BookDetail']">
-        <router-view />
+        <router-view/>
       </keep-alive>
     </transition>
   </div>
@@ -20,6 +20,8 @@ export default {
   },
   watch: {
     $route(to, from) {
+      console.log('to:', to)
+      console.log('from', from)
       if (from.meta && to.meta) {
         if (from.meta.index <= to.meta.index) {
           this.transitionName = 'slide-left'
@@ -36,25 +38,41 @@ export default {
 .slide-right-enter-active,
 .slide-right-leave-active,
 .slide-left-enter-active,
-.slide-left-leave-active {
+.slide-left-leave-active,
+.fade-in-up-big-enter-active {
   will-change: transform;
-  transition: all 500ms;
+  transition: all .5s;
   position: absolute;
+  height: 100vh;
+  width: 100%;
 }
+
 .slide-right-enter {
   opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
-.slide-right-leave-active {
+
+.slide-right-leave-to {
   opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
+
 .slide-left-enter {
   opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
-.slide-left-leave-active {
+
+.slide-left-leave-to {
   opacity: 0;
   transform: translate3d(-100%, 0, 0);
+}
+
+.fade-in-up-big-enter {
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+}
+
+.fade-in-up-big-leave-active {
+  transform: translate3d(0, -100%, 0);
 }
 </style>

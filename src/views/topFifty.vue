@@ -10,7 +10,7 @@
       left-arrow
       :safe-area-inset-top="true"
       :placeholder="true"
-      title="TOP50"
+      title="排行榜"
       @click-left="$router.back()"
     />
     <van-row>

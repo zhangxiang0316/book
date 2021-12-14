@@ -19,7 +19,7 @@
       </template>
     </van-nav-bar>
     <div
-      v-if="bookDetail.detail"
+      v-show="bookDetail.detail"
       style="font-size: 14px;line-height: 25px;padding:  10px"
       :style="{'background-color':backgroundColor,color:color,'font-size':fontSize+'px','line-height':lineHeight+'px'}"
       @click="$refs.bottomMenu.show = true"
@@ -90,8 +90,7 @@ export default {
       'detailQuery'
     ])
   },
-  watch: {
-  },
+  watch: {},
   activated() {
   },
   mounted() {
@@ -102,6 +101,7 @@ export default {
     this.detailUrl = this.detailQuery.detailUrl
     this.menuUrl = this.detailQuery.menuUrl
     this.imgUrl = this.detailQuery.imgUrl
+    this.title = this.bookName
     this.loadData(true)
   },
   methods: {
