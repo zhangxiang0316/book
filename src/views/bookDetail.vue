@@ -32,6 +32,7 @@
           finished-text="没有更多了"
           @load="nextPage"
         >
+          <div style="height: 20px" />
           <div
             v-for="(item,index) in bookDetail.detail"
             :key="index"
