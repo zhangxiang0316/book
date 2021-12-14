@@ -326,4 +326,10 @@ export default {
   }
 }
 
+/deep/ .van-grid-item__content--center{
+  -webkit-box-align: start ;
+  -webkit-align-items: flex-start ;
+   align-items: start ;
+}
+
 </style>
