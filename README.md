@@ -4,7 +4,7 @@
 
 前端采用vue 展示
 
-[在线地址] (http://150.158.52.240/book)
+[在线地址](http://zhangmuchen.top/book)
 
 Android App 扫码下载
 

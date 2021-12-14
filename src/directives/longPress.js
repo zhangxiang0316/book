@@ -13,7 +13,7 @@ const longPress = {
       if (pressTimer === null) {
         pressTimer = setTimeout(() => {
           handler()
-        }, 2000)
+        }, 1000)
       }
     }
     // 取消计时器
