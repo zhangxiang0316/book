@@ -21,10 +21,10 @@
           @click="$router.push({name:'search'})"
         />
       </div>
-      <van-tag round type="primary" @click="$router.push('/topFifty')">排行榜</van-tag>
       <van-tag v-for="item in typeList" :key="item.value" round type="primary" @click="tagClick(item)">
         {{ item.name }}
       </van-tag>
+      <van-tag round type="primary" @click="$router.push('/topFifty')">排行榜</van-tag>
       <div v-if="nowLookPage.length">
         <van-sidebar>
           <van-sidebar-item title="我的书架" />

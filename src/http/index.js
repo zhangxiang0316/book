@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const Http = axios.create({
-  baseURL: 'http://zhangmuchen.top:8000',
+  baseURL: process.env.VUE_APP_BASE_URL,
   timeout: 60 * 1000
 })
 

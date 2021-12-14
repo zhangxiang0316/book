@@ -20,17 +20,13 @@ export default {
   },
   watch: {
     $route(to, from) {
-      console.log(this.$router)
-      // 切换动画
-      const isBack = this.$router.isBack // 监听路由变化时的状态为前进还是后退
-      console.log()
-      if (isBack) {
-        this.transitionName = 'slide-left'
-      } else {
-        this.transitionName = 'slide-right'
+      if (from.meta && to.meta) {
+        if (from.meta.index <= to.meta.index) {
+          this.transitionName = 'slide-left'
+        } else {
+          this.transitionName = 'slide-right'
+        }
       }
-      this.$router.isBack = true
-      console.log(this.transitionName)
     }
   }
 }

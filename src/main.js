@@ -11,13 +11,13 @@ import Loading from './components/loading/loading.js'
 import store from './store'
 import { Lazyload } from 'vant'
 
-import directives from './directives'
+// import directives from './directives'
 // import VConsole from 'vconsole'
 // new VConsole()
 Vue.use(Lazyload)
 Vue.use(Vant)
 Vue.use(Loading)
-Vue.use(directives)
+// Vue.use(directives)
 
 Vue.prototype.$http = Http
 Vue.config.productionTip = false

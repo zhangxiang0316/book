@@ -6,47 +6,45 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 const routers = [
   {
-    path: '/index',
-    name: 'index',
-    component: resolve => require(['@/views/index.vue'], resolve)
-  },
-  {
     path: '/home',
     name: 'home',
-    component: resolve => require(['@/views/home.vue'], resolve)
+    component: resolve => require(['@/views/home.vue'], resolve),
+    meta: { index: 1 }
   },
   {
     path: '/menuList',
     name: 'menuList',
-    component: resolve => require(['@/views/menuList.vue'], resolve)
+    component: resolve => require(['@/views/menuList.vue'], resolve),
+    meta: { index: 2 }
   },
   {
     path: '/bookDetail',
     name: 'bookDetail',
-    component: resolve => require(['@/views/bookDetail.vue'], resolve)
-  },
-  {
-    path: '/history',
-    name: 'history',
-    component: resolve => require(['@/views/history.vue'], resolve)
+    component: resolve => require(['@/views/bookDetail.vue'], resolve),
+    meta: { index: 3 }
   },
   {
     path: '/typeList',
     name: 'typeList',
-    component: resolve => require(['@/views/typeList.vue'], resolve)
+    component: resolve => require(['@/views/typeList.vue'], resolve),
+    meta: { index: 2 }
   },
   {
     path: '/topFifty',
     name: 'topFifty',
-    component: resolve => require(['@/views/topFifty.vue'], resolve)
+    component: resolve => require(['@/views/topFifty.vue'], resolve),
+    meta: { index: 2 }
   },
   {
     path: '/search',
     name: 'search',
-    component: resolve => require(['@/views/search.vue'], resolve)
+    component: resolve => require(['@/views/search.vue'], resolve),
+    meta: { index: 2 }
   },
   /** 重定向*/
   {
@@ -57,7 +55,15 @@ const routers = [
 Vue.use(Router)
 const vueRouter = new Router({
   routes: routers
-}
-)
+})
+
+vueRouter.beforeEach((to, form, next) => {
+  NProgress.start()
+  next()
+})
+
+vueRouter.afterEach(() => {
+  NProgress.done()
+})
 
 export default vueRouter
