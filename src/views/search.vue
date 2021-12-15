@@ -62,76 +62,103 @@ export default {
       }
       this.$loading.show()
       this.list = []
+
       this.$http.get('/biquge/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/wudi/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/xbiquge/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/xihongshi/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/fanqie/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/yongsheng/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/xbiqupao/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/biququ/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
+
       this.$http.get('/bayi/search', {
         params: {
           name: this.bookName
         }
       }).then(res => {
-        this.list = [...this.list, ...res]
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
         this.$loading.hide()
       })
     }
