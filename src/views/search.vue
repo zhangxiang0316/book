@@ -126,6 +126,14 @@ export default {
         this.list = [...this.list, ...res]
         this.$loading.hide()
       })
+      this.$http.get('/bayi/search', {
+        params: {
+          name: this.bookName
+        }
+      }).then(res => {
+        this.list = [...this.list, ...res]
+        this.$loading.hide()
+      })
     }
   }
 }
