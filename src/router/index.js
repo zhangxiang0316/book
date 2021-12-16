@@ -20,13 +20,13 @@ const routers = [
     path: '/menuList',
     name: 'menuList',
     component: resolve => require(['@/views/menuList.vue'], resolve),
-    meta: { index: 2 }
+    meta: { index: 3 }
   },
   {
     path: '/bookDetail',
     name: 'bookDetail',
     component: resolve => require(['@/views/bookDetail.vue'], resolve),
-    meta: { index: 3 }
+    meta: { index: 4 }
   },
   {
     path: '/typeList',
