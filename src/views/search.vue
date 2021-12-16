@@ -161,6 +161,16 @@ export default {
         })
         this.$loading.hide()
       })
+      this.$http.get('/danshu/search', {
+        params: {
+          name: this.bookName
+        }
+      }).then(res => {
+        this.list = [...this.list, ...res].sort((a, b) => {
+          return a.name.length - b.name.length
+        })
+        this.$loading.hide()
+      })
     }
   }
 }
