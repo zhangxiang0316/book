@@ -12,10 +12,7 @@ Android App 扫码下载
 
 
 ![](static/6.png)
-![](static/7.png)
-![](static/8.png)
-![](static/5.png)
-![](static/4.png)
-![](static/3.png)
-![](static/2.png)
-![](static/1.png)
+![](static/7.png)![](static/8.png)![](static/5.png)
+![](static/4.png)![](static/3.png)![](static/2.png)
+![](static/1.png)![](static/11.png)![](static/10.png)
+![](static/9.png)
