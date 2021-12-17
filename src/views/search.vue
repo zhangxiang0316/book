@@ -13,7 +13,15 @@
       left-arrow
       @click-left="$router.back()"
     />
-    <van-search v-model="bookName" autofocus style="position: fixed;top:45px;width: 100%;z-index: 10" clearable shape="round" placeholder="请输入" @search="searchBook" />
+    <van-search
+      v-model="bookName"
+      autofocus
+      style="position: fixed;top:45px;width: 100%;z-index: 10"
+      clearable
+      shape="round"
+      placeholder="请输入"
+      @search="searchBook"
+    />
     <div style="margin-top: 46px;width: 100%">
       <van-cell
         v-for="(item,index) in list"
@@ -38,6 +46,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Search',
@@ -49,7 +58,11 @@ export default {
       list: []
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'bookFromList'
+    ])
+  },
   activated() {
   },
   methods: {
@@ -62,124 +75,19 @@ export default {
       }
       this.$loading.show()
       this.list = []
-
-      this.$http.get('/biquge/search', {
-        params: {
-          name: this.bookName
+      this.bookFromList.forEach(item => {
+        if (item.show) {
+          this.$http.get(`/${item.value}/search`, {
+            params: {
+              name: this.bookName
+            }
+          }).then(res => {
+            this.list = [...this.list, ...res].sort((a, b) => {
+              return a.name.length - b.name.length
+            })
+            this.$loading.hide()
+          })
         }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/wudi/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/xbiquge/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/xihongshi/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/fanqie/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/yongsheng/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/xbiqupao/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/biququ/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-
-      this.$http.get('/bayi/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-      this.$http.get('/danshu/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
-      })
-      this.$http.get('/sanz/search', {
-        params: {
-          name: this.bookName
-        }
-      }).then(res => {
-        this.list = [...this.list, ...res].sort((a, b) => {
-          return a.name.length - b.name.length
-        })
-        this.$loading.hide()
       })
     }
   }

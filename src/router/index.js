@@ -11,6 +11,27 @@ import 'nprogress/nprogress.css'
 
 const routers = [
   {
+    path: '/',
+    name: 'homes',
+    redirect: '/home',
+    component: resolve => require(['@/components/layout.vue'], resolve),
+    meta: { index: 1 },
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: resolve => require(['@/views/home.vue'], resolve),
+        meta: { index: 1 }
+      },
+      {
+        path: '/mine',
+        name: 'mine',
+        component: resolve => require(['@/views/mine.vue'], resolve),
+        meta: { index: 1 }
+      }
+    ]
+  },
+  {
     path: '/home',
     name: 'home',
     component: resolve => require(['@/views/home.vue'], resolve),
@@ -44,6 +65,18 @@ const routers = [
     path: '/search',
     name: 'search',
     component: resolve => require(['@/views/search.vue'], resolve),
+    meta: { index: 2 }
+  },
+  {
+    path: '/bookFrom',
+    name: 'bookFrom',
+    component: resolve => require(['@/views/bookFrom.vue'], resolve),
+    meta: { index: 2 }
+  },
+  {
+    path: '/history',
+    name: 'history',
+    component: resolve => require(['@/views/history.vue'], resolve),
     meta: { index: 2 }
   },
   /** 重定向*/

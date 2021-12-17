@@ -21,10 +21,10 @@
           @click="$router.push({name:'search'})"
         />
       </div>
-      <van-tag v-for="item in typeList" :key="item.value" round type="primary" @click="tagClick(item)">
+      <van-tag v-for="item in typeList" :key="item.value" round color="#91DCD9" type="primary" @click="tagClick(item)">
         {{ item.name }}
       </van-tag>
-      <van-tag round type="primary" @click="$router.push('/topFifty')">排行榜</van-tag>
+      <van-tag round type="primary" color="#91DCD9" @click="$router.push('/topFifty')">排行榜</van-tag>
       <div v-if="nowLookPage.length">
         <van-sidebar>
           <van-sidebar-item title="我的书架" />
@@ -200,9 +200,9 @@ export default {
       })
     },
     verScroll() {
-      // if (this.nowLookPage.length === 0) {
-      //   return
-      // }
+      if (this.nowLookPage.length === 0) {
+        return
+      }
       const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
       this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
       this.$nextTick(() => {

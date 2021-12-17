@@ -4,6 +4,19 @@ const state = {
   lineHeight: 24,
   color: '#333',
   nowLookPage: [], // 阅读历史
+  bookFromList: [
+    { name: '八一小说', value: 'bayi', show: true },
+    { name: '笔趣阁', value: 'biquge', show: true },
+    { name: '笔趣趣', value: 'biququ', show: true },
+    { name: '丹书铁券', value: 'danshu', show: true },
+    { name: '番茄小说', value: 'fanqie', show: true },
+    { name: '无敌小说', value: 'wudi', show: true },
+    { name: '新笔趣阁', value: 'xbiquge', show: true },
+    { name: '新笔趣泡', value: 'xbiqupao', show: true },
+    { name: '西红柿', value: 'xihongshi', show: true },
+    { name: '永生文学', value: 'yongsheng', show: true },
+    { name: '3z小说', value: 'sanz', show: true }
+  ],
   isNight: false,
   detailQuery: {}
 }
@@ -30,7 +43,8 @@ const getters = {
   color: state => state.color,
   nowLookPage: state => state.nowLookPage,
   isNight: state => state.isNight,
-  detailQuery: state => state.detailQuery
+  detailQuery: state => state.detailQuery,
+  bookFromList: state => state.bookFromList
 }
 
 export default {
