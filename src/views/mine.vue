@@ -7,6 +7,7 @@
   <div class="mine">
     <van-nav-bar
       :fixed="true"
+      :border="false"
       :safe-area-inset-top="true"
       :placeholder="true"
       title="我的"
