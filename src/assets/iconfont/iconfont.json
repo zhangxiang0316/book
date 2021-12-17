@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7765161",
+      "name": "家长_书架",
+      "font_class": "jiachang_shujia",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "1727378",
+      "name": "33资源",
+      "font_class": "ziyuan1",
+      "unicode": "e8a4",
+      "unicode_decimal": 59556
+    },
+    {
       "icon_id": "10564271",
       "name": "eye",
       "font_class": "eye",

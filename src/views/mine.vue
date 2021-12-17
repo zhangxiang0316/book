@@ -20,8 +20,8 @@
         </div>
       </div>
     </div>
-    <van-cell title="书源设置" is-link @click="$router.push({name:'bookFrom'})" />
-    <van-cell title="我的书架" is-link @click="$router.push({name:'history'})" />
+    <van-cell title="书源设置" is-link @click="$router.push({name:'bookFrom'})" icon-prefix="iconfont" icon="ziyuan1"/>
+    <van-cell title="我的书架" is-link @click="$router.push({name:'history'})" icon-prefix="iconfont" icon="jiachang_shujia"/>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
       height: 150px;
       border-bottom-left-radius: 100%;
       border-bottom-right-radius: 100%;
-      background: linear-gradient(0deg, rgba(147, 217, 214, 0.1) 0%, rgba(147, 217, 214, 1) 100%);
+      background: linear-gradient(0deg, rgba(145, 220, 217, 0.1) 0%, rgba(145, 220, 217, 1) 100%);
     }
   }
 
