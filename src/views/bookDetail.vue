@@ -15,7 +15,7 @@
       @click-left="$router.back()"
     >
       <template #right>
-        <i class="iconfont icon-caidan" />
+        <i class="iconfont icon-caidan" style="color:white;" />
       </template>
     </van-nav-bar>
     <div
