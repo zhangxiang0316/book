@@ -11,7 +11,7 @@
       :placeholder="true"
       :title="title"
       left-arrow
-      @click-right="$refs.bottomMenu.show = true"
+      @click-right="speak"
       @click-left="$router.back()"
     >
       <template #right>
@@ -186,7 +186,7 @@ export default {
     },
 
     speak() {
-      const url = 'http://tts.baidu.com/text2audio.mp3?lan=zh&ie=UTF-8&spd=5&text=' + encodeURI('我是张三我是张三我是张三我是张三我是张三我是张三我是张三我是张三，')
+      const url = 'http://tts.baidu.com/text2audio.mp3?lan=zh&ie=UTF-8&spd=5&text=' + encodeURI(this.bookDetail.detail)
       const audio = new Audio()
       audio.src = url
       audio.addEventListener('timeupdate', () => {

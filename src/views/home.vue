@@ -136,6 +136,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import { Dialog } from 'vant'
 import BScroll from 'better-scroll'
+import { uniqBy } from 'loadsh'
 
 export default {
   name: 'Home',
@@ -157,19 +158,35 @@ export default {
         { name: '科幻', value: 6 },
         { name: '女生', value: 7 },
         { name: '完本', value: 0 }
+      ],
+      fromList: [
+        { name: '八一小说', value: 'bayi', show: true },
+        { name: '笔趣阁', value: 'biquge', show: true },
+        { name: '笔趣趣', value: 'biququ', show: true },
+        { name: '丹书铁券', value: 'danshu', show: true },
+        { name: '番茄小说', value: 'fanqie', show: true },
+        { name: '无敌小说', value: 'wudi', show: true },
+        { name: '新笔趣阁', value: 'xbiquge', show: true },
+        { name: '新笔趣泡', value: 'xbiqupao', show: true },
+        { name: '西红柿', value: 'xihongshi', show: true },
+        { name: '永生文学', value: 'yongsheng', show: true },
+        { name: '3z小说', value: 'sanz', show: true },
+        { name: '墨缘文学', value: 'moyuan', show: true },
+        { name: '搜小说', value: 'souxiaoshuo', show: true }
       ]
     }
   },
   computed: {
     ...mapGetters([
-      'nowLookPage'
+      'nowLookPage',
+      'bookFromList'
     ])
   },
   created() {
     this.loadData()
   },
   mounted() {
-
+    this.setBookFromList()
   },
   activated() {
     this.$nextTick(() => {
@@ -185,6 +202,10 @@ export default {
     ...mapActions([
       'changeSetting'
     ]),
+    setBookFromList() {
+      const list = uniqBy([...this.bookFromList, ...this.fromList], 'value')
+      this.changeSetting({ key: 'bookFromList', value: list })
+    },
     deleteItem(item) {
       Dialog.alert({
         message: `确认删除${item.name}`
@@ -299,8 +320,9 @@ export default {
         .img {
           width: 100%;
         }
-        .from{
-          position: absolute;    /*绝对定位*/
+
+        .from {
+          position: absolute; /*绝对定位*/
           height: 20px;
           line-height: 20px;
           text-align: center;
@@ -326,10 +348,10 @@ export default {
   }
 }
 
-/deep/ .van-grid-item__content--center{
-  -webkit-box-align: start ;
-  -webkit-align-items: flex-start ;
-   align-items: start ;
+/deep/ .van-grid-item__content--center {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  align-items: start;
 }
 
 </style>
