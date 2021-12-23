@@ -41,7 +41,7 @@
                 @click="toDetail(item)"
               >
                 <div class="cont-img">
-                  <van-image width="80" height="100" lazy-load radius="10" class="img" :src="item.imgUrl" />
+                  <van-image width="80" height="100" lazy-load radius="10" class="img" :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')" />
                   <div class="from">{{ item.from }}</div>
                 </div>
                 <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>

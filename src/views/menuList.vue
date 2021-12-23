@@ -130,5 +130,7 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-
+/deep/ .van-nav-bar__text{
+  color: white;
+}
 </style>
