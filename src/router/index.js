@@ -78,6 +78,11 @@ const routers = [
     name: 'history',
     component: resolve => require(['@/views/history.vue'], resolve),
     meta: { index: 2 }
+  }, {
+    path: '/test',
+    name: 'test',
+    component: resolve => require(['@/views/test.vue'], resolve),
+    meta: { index: 2 }
   },
   /** 重定向*/
   {

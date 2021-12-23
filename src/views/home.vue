@@ -172,7 +172,8 @@ export default {
         { name: '永生文学', value: 'yongsheng', show: true },
         { name: '3z小说', value: 'sanz', show: true },
         { name: '墨缘文学', value: 'moyuan', show: true },
-        { name: '搜小说', value: 'souxiaoshuo', show: true }
+        { name: '笔趣网', value: 'biquwang', show: true },
+        { name: '鸟书网', value: 'niaoshu', show: true }
       ]
     }
   },
