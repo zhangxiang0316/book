@@ -175,7 +175,8 @@ export default {
         { name: '笔趣网', value: 'biquwang', show: true },
         { name: '鸟书网', value: 'niaoshu', show: true },
         { name: '00小说', value: 'lingling', show: true },
-        { name: '起舞小说', value: 'qiwu', show: true }
+        { name: '起舞小说', value: 'qiwu', show: true },
+        { name: '搜小说', value: 'souxiaoshuo', show: true }
       ]
     }
   },
