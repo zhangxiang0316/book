@@ -19,10 +19,18 @@
         :value="item.from"
       >
         <template #label>
-          <div class="van-ellipsis">{{ item.title }}</div>
+          <div class="van-ellipsis" style="width: 60%">{{ item.title }}</div>
         </template>
         <template #icon>
-          <van-image :src="item.imgUrl" radius="3" width="32" height="40" style="margin-right: 10px" />
+          <van-image
+            lazy-load
+            error-icon="fail"
+            :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
+            radius="3"
+            width="32"
+            height="40"
+            style="margin-right: 10px"
+          />
         </template>
       </van-cell>
       <template #right>

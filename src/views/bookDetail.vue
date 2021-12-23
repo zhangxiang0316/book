@@ -40,7 +40,7 @@
           >{{ item }}
             <div style="height: 20px" />
           </div>
-          <div style="height: 100px" />
+          <div style="height: 200px" />
         </van-list>
       </van-pull-refresh>
     </div>

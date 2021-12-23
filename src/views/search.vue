@@ -37,7 +37,8 @@
             radius="3"
             height="40"
             lazy-load
-            :src="item.imgUrl"
+            error-icon="fail"
+            :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
           />
         </template>
       </van-cell>
