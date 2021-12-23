@@ -173,7 +173,9 @@ export default {
         { name: '3z小说', value: 'sanz', show: true },
         { name: '墨缘文学', value: 'moyuan', show: true },
         { name: '笔趣网', value: 'biquwang', show: true },
-        { name: '鸟书网', value: 'niaoshu', show: true }
+        { name: '鸟书网', value: 'niaoshu', show: true },
+        { name: '00小说', value: 'lingling', show: true },
+        { name: '起舞小说', value: 'qiwu', show: true }
       ]
     }
   },
