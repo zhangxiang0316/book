@@ -7,7 +7,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+// import 'nprogress/nprogress.css'
 
 const routers = [
   {
@@ -30,12 +30,6 @@ const routers = [
         meta: { index: 1 }
       }
     ]
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: resolve => require(['@/views/home.vue'], resolve),
-    meta: { index: 1 }
   },
   {
     path: '/menuList',

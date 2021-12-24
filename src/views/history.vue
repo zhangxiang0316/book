@@ -14,12 +14,12 @@
       @click-left="$router.back()"
     />
     <van-swipe-cell v-for="(item,index) in nowLookPage" :key="item.detailUrl">
-      <van-cell
-        :title="item.bookName"
-        :value="item.from"
-      >
+      <van-cell :value="item.from">
+        <template #title>
+          <div class="van-ellipsis" style="width: 100%">{{ item.bookName }}</div>
+        </template>
         <template #label>
-          <div class="van-ellipsis" style="width: 60%">{{ item.title }}</div>
+          <div class="van-ellipsis" style="width: 100%">{{ item.title }}</div>
         </template>
         <template #icon>
           <van-image
@@ -75,5 +75,14 @@ export default {
 </script>
 
 <style scoped>
+
+/deep/ .van-cell__title {
+  flex: 1;
+}
+
+/deep/ .van-cell__value {
+  width: 80px;
+  flex: revert;
+}
 
 </style>

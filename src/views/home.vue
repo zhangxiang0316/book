@@ -12,7 +12,7 @@
       title="首页"
     />
     <van-pull-refresh v-model="refreshing" @refresh="loadData">
-      <div style="padding: 0 10px">
+      <van-sticky :offset-top="46">
         <van-search
           v-model="bookName"
           shape="round"
@@ -20,7 +20,7 @@
           readonly
           @click="$router.push({name:'search'})"
         />
-      </div>
+      </van-sticky>
       <van-tag v-for="item in typeList" :key="item.value" round color="#91DCD9" type="primary" @click="tagClick(item)">
         {{ item.name }}
       </van-tag>
@@ -56,7 +56,6 @@
         <van-sidebar>
           <van-sidebar-item :title="detail.hot.name" />
         </van-sidebar>
-        <div class="van-hairline--top" />
         <van-grid :column-num="2">
           <van-grid-item v-for="item in detail.hot.list" :key="item.bookMenuUrl">
             <div style="display: flex" @click="cellClick(item)">
@@ -68,8 +67,8 @@
                 :src="item.imgUrl"
               />
               <div style="flex: 1;max-height: 100px;margin-left: 8px">
-                <div style="font-size: 16px;line-height: 25px">{{ item.name }}</div>
-                <div style="font-size: 14px;line-height: 28px">{{ item.author }}</div>
+                <div style="font-size: 15px;line-height: 25px">{{ item.name }}</div>
+                <div style="font-size: 13px;line-height: 25px">{{ item.author }}</div>
                 <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">
                   {{ item.disc.trim() }}
                 </div>
@@ -91,41 +90,42 @@
           :value="item.type "
           @click="cellClick(item)"
         />
+        <div style="border-bottom: 1px solid #eee" />
       </div>
-      <div v-if="detail.block">
-        <van-tabs v-model="active">
-          <van-tab v-for="(item,index) in detail.block.list" :key="index" :title="item.name" />
+      <div v-if="detail.block" style="margin-top: 10px">
+        <van-tabs v-model="active" swipeable>
+          <van-tab v-for="(item,index) in detail.block.list" :key="index" :title="item.name">
+            <template v-for="item in detail.block.list[index].list">
+              <div
+                v-if="item.imgUrl"
+                :key="item.bookMenuUrl"
+                style="display: flex;padding: 5px 10px"
+                @click="cellClick(item)"
+              >
+                <van-image
+                  width="66"
+                  height="80"
+                  radius="5"
+                  lazy-load
+                  :src="item.imgUrl"
+                />
+                <div style="flex: 1;max-height: 80px;margin-left: 8px">
+                  <div style="font-size: 15px;line-height: 22px">{{ item.name }}</div>
+                  <div style="font-size: 14px;line-height: 22px">{{ item.author }}</div>
+                  <div style="font-size: 12px;line-height: 20px" class="van-multi-ellipsis--l3">{{ item.disc.trim() }}</div>
+                </div>
+              </div>
+              <van-cell
+                v-else
+                :key="item.bookMenuUrl"
+                :title="`${item.name}`"
+                :label="item.author"
+                :value="item.type "
+                @click="cellClick(item)"
+              />
+            </template>
+          </van-tab>
         </van-tabs>
-        <div class="van-hairline--top" />
-        <template v-for="item in detail.block.list[active].list">
-          <div
-            v-if="item.imgUrl"
-            :key="item.bookMenuUrl"
-            style="display: flex;padding: 5px 10px"
-            @click="cellClick(item)"
-          >
-            <van-image
-              width="66"
-              height="80"
-              radius="5"
-              lazy-load
-              :src="item.imgUrl"
-            />
-            <div style="flex: 1;max-height: 80px;margin-left: 8px">
-              <div style="font-size: 16px;line-height: 25px">{{ item.name }}</div>
-              <div style="font-size: 14px;line-height: 28px">{{ item.author }}</div>
-              <div style="font-size: 10px;line-height: 16px" class="van-multi-ellipsis--l3">{{ item.disc.trim() }}</div>
-            </div>
-          </div>
-          <van-cell
-            v-else
-            :key="item.bookMenuUrl"
-            :title="`${item.name}`"
-            :label="item.author"
-            :value="item.type "
-            @click="cellClick(item)"
-          />
-        </template>
       </div>
     </van-pull-refresh>
   </div>
@@ -137,6 +137,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { Dialog } from 'vant'
 import BScroll from 'better-scroll'
 import { uniqBy } from 'loadsh'
+import { fromList, typeList } from '../conf'
 
 export default {
   name: 'Home',
@@ -149,35 +150,7 @@ export default {
       active: 0,
       bookName: '',
       detail: {},
-      typeList: [
-        { name: '玄幻', value: 1 },
-        { name: '武侠', value: 2 },
-        { name: '都市', value: 3 },
-        { name: '历史', value: 4 },
-        { name: '网游', value: 5 },
-        { name: '科幻', value: 6 },
-        { name: '女生', value: 7 },
-        { name: '完本', value: 0 }
-      ],
-      fromList: [
-        { name: '八一小说', value: 'bayi', show: true },
-        { name: '笔趣阁', value: 'biquge', show: true },
-        { name: '笔趣趣', value: 'biququ', show: true },
-        { name: '丹书铁券', value: 'danshu', show: true },
-        { name: '番茄小说', value: 'fanqie', show: true },
-        { name: '无敌小说', value: 'wudi', show: true },
-        { name: '新笔趣阁', value: 'xbiquge', show: true },
-        { name: '新笔趣泡', value: 'xbiqupao', show: true },
-        { name: '西红柿', value: 'xihongshi', show: true },
-        { name: '永生文学', value: 'yongsheng', show: true },
-        { name: '3z小说', value: 'sanz', show: true },
-        { name: '墨缘文学', value: 'moyuan', show: true },
-        { name: '笔趣网', value: 'biquwang', show: true },
-        { name: '鸟书网', value: 'niaoshu', show: true },
-        { name: '00小说', value: 'lingling', show: true },
-        { name: '起舞小说', value: 'qiwu', show: true },
-        { name: '搜小说', value: 'souxiaoshuo', show: true }
-      ]
+      typeList: typeList
     }
   },
   computed: {
@@ -207,7 +180,7 @@ export default {
       'changeSetting'
     ]),
     setBookFromList() {
-      const list = uniqBy([...this.bookFromList, ...this.fromList], 'value')
+      const list = uniqBy([...this.bookFromList, ...fromList], 'value')
       this.changeSetting({ key: 'bookFromList', value: list })
     },
     deleteItem(item) {
@@ -228,7 +201,7 @@ export default {
       if (this.nowLookPage.length === 0) {
         return
       }
-      const width = this.nowLookPage.length * 100 - 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
+      const width = this.nowLookPage.length * 100 + 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
       this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
       this.$nextTick(() => {
         if (!this.scroll) {
@@ -356,6 +329,15 @@ export default {
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
   align-items: start;
+}
+
+/deep/ .van-cell__title {
+  flex: 3;
+}
+
+/deep/ .van-cell__value {
+  width: 80px;
+  flex: none;
 }
 
 </style>
