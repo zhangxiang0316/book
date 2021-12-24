@@ -94,8 +94,8 @@
       </div>
       <div v-if="detail.block" style="margin-top: 10px">
         <van-tabs v-model="active" swipeable>
-          <van-tab v-for="(item,index) in detail.block.list" :key="index" :title="item.name">
-            <template v-for="item in detail.block.list[index].list">
+          <van-tab v-for="(items,index) in detail.block.list" :key="index" :title="items.name">
+            <template v-for="item in items.list">
               <div
                 v-if="item.imgUrl"
                 :key="item.bookMenuUrl"
