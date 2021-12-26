@@ -78,12 +78,15 @@ export default {
       this.list = []
       this.bookFromList.forEach(item => {
         if (item.show) {
-          this.$http.get(`/${item.value}/search`, {
+          // this.$http.get(`/${item.value}/search`, {
+          this.$http.get('/search', {
             params: {
-              name: this.bookName
+              name: this.bookName,
+              type: item.name
             }
           }).then(res => {
-            this.list = [...this.list, ...res].sort((a, b) => {
+            const arr = res
+            this.list = [...this.list, ...arr].sort((a, b) => {
               return a.name.length - b.name.length
             })
             this.$loading.hide()

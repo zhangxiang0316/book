@@ -1,8 +1,8 @@
 const axios = require('axios')
 
 const Http = axios.create({
-  baseURL: process.env.VUE_APP_BASE_URL,
-  // baseURL: 'http://127.0.0.1:8000/',
+  // baseURL: process.env.VUE_APP_BASE_URL,
+  baseURL: 'http://127.0.0.1:8000/',
   timeout: 60 * 1000
 })
 
