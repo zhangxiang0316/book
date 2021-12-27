@@ -16,7 +16,12 @@ export const fromList = [
   { name: '00小说', value: 'lingling', show: true },
   { name: '起舞小说', value: 'qiwu', show: true },
   { name: '搜小说', value: 'souxiaoshuo', show: true },
-  { name: '悠久小说', value: 'youjiu', show: true }
+  { name: '悠久小说', value: 'youjiu', show: true },
+  { name: '妙笔阁', value: 'miaobige', show: true },
+  { name: '全本小说', value: 'quanben', show: true },
+  { name: '千千小说', value: 'qianqian', show: true },
+  { name: '微风小说', value: 'weifeng', show: true },
+  { name: '九桃小说', value: 'jiutao', show: true }
 ]
 
 export const typeList = [

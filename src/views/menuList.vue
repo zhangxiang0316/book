@@ -17,7 +17,9 @@
     />
     <div ref="header">
       <div v-if="info.name" style="padding: 10px;display: flex">
-        <van-image radius="10" width="85" height="100" :src="info.imgUrl" />
+        <div style="width: 80px">
+          <van-image radius="6" width="75" height="100" :src="info.imgUrl" lazy-load />
+        </div>
         <div style="line-height: 25px;margin-left: 10px">
           <div style="font-size: 20px;font-weight: 800">{{ info.name }}</div>
           <div style="font-size: 14px">{{ info.author }}</div>
@@ -48,6 +50,7 @@
 import { mapActions } from 'vuex'
 import virtualList from 'vue-virtual-scroll-list'
 import menuItem from '../components/menuItem'
+
 export default {
   name: 'MenuList',
   components: {
@@ -66,8 +69,7 @@ export default {
       height: ''
     }
   },
-  computed: {
-  },
+  computed: {},
   activated() {
     if (this.menuUrl !== this.$route.query.menuUrl) {
       this.menuUrl = this.$route.query.menuUrl
@@ -120,7 +122,8 @@ export default {
           bookName: this.title,
           from: item.from,
           imgUrl: this.info.imgUrl
-        }})
+        }
+      })
       this.$router.push({
         name: 'bookDetail'
       })
@@ -130,7 +133,7 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-/deep/ .van-nav-bar__text{
+/deep/ .van-nav-bar__text {
   color: white;
 }
 </style>
