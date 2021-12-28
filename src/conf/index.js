@@ -22,7 +22,8 @@ export const fromList = [
   { name: '千千小说', value: 'qianqian', show: true },
   { name: '微风小说', value: 'weifeng', show: true },
   { name: '九桃小说', value: 'jiutao', show: true },
-  { name: '黑岩小说', value: 'heiyan', show: true }
+  { name: '黑岩小说', value: 'heiyan', show: true },
+  { name: '言情中文', value: 'yanqing', show: true }
 ]
 
 export const typeList = [
