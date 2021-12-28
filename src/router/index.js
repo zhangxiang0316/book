@@ -6,8 +6,6 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-// import NProgress from 'nprogress'
-// import 'nprogress/nprogress.css'
 
 const routers = [
   {
@@ -72,7 +70,14 @@ const routers = [
     name: 'history',
     component: resolve => require(['@/views/history.vue'], resolve),
     meta: { index: 2 }
-  }, {
+  },
+  {
+    path: '/setting',
+    name: 'setting',
+    component: resolve => require(['@/views/setting.vue'], resolve),
+    meta: { index: 3 }
+  },
+  {
     path: '/test',
     name: 'test',
     component: resolve => require(['@/views/test.vue'], resolve),
@@ -88,14 +93,5 @@ Vue.use(Router)
 const vueRouter = new Router({
   routes: routers
 })
-
-// vueRouter.beforeEach((to, form, next) => {
-//   NProgress.start()
-//   next()
-// })
-//
-// vueRouter.afterEach(() => {
-//   NProgress.done()
-// })
 
 export default vueRouter
