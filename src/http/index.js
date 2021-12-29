@@ -17,4 +17,3 @@ Http.interceptors.response.use(response => {
 })
 
 module.exports = Http
-

@@ -23,40 +23,40 @@
       @search="searchBook"
     />
     <div style="margin-top: 46px;width: 100%">
-      <van-cell
-        v-for="(item,index) in list"
-        :key="index"
-        :title="item.name"
-        :label="`来源:${item.from}    ${item.author}`"
-        @click="cellClick(item)"
-      >
-        <template #icon>
-          <van-image
-            style="margin-right: 10px"
-            width="32"
-            radius="3"
-            height="40"
-            lazy-load
-            error-icon="fail"
-            :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
-          />
-        </template>
-      </van-cell>
+      <virtual-list
+        :style="{height:height}"
+        style="overflow-y: auto;height:100%;"
+        :data-key="'menuUrl'"
+        :keeps="30"
+        :start="0"
+        :data-sources="list"
+        :data-component="itemComponent"
+        :extra-props="{
+          cellClick:cellClick
+        }"
+      />
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapGetters } from 'vuex'
+import { sortBy, filter } from 'loadsh'
+import virtualList from 'vue-virtual-scroll-list'
+import searchItem from '../components/searchItem'
 
 export default {
   name: 'Search',
-  components: {},
+  components: {
+    virtualList
+  },
   props: {},
   data() {
     return {
+      itemComponent: searchItem,
       bookName: '',
-      list: []
+      list: [],
+      height: 0
     }
   },
   computed: {
@@ -64,7 +64,8 @@ export default {
       'bookFromList'
     ])
   },
-  activated() {
+  mounted() {
+    this.height = document.documentElement.clientHeight - 46 + 'px'
   },
   methods: {
     cellClick(item) {
@@ -78,7 +79,6 @@ export default {
       this.list = []
       this.bookFromList.forEach(item => {
         if (item.show) {
-          // this.$http.get(`/${item.value}/search`, {
           this.$http.get('/search', {
             params: {
               name: this.bookName,
@@ -86,9 +86,14 @@ export default {
             }
           }).then(res => {
             const arr = res
-            this.list = [...this.list, ...arr].sort((a, b) => {
-              return a.name.length - b.name.length
+            this.list = sortBy(filter([...this.list, ...arr], (item) => {
+              return (item.name.indexOf(this.bookName) !== -1 || item.author.indexOf(this.bookName) !== -1)
+            }), (item) => {
+              return item.name.length
             })
+            // this.list = [...this.list, ...arr].sort((a, b) => {
+            //   return a.name.length - b.name.length
+            // })
             this.$loading.hide()
           })
         }
