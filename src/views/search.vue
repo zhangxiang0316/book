@@ -91,9 +91,6 @@ export default {
             }), (item) => {
               return item.name.length
             })
-            // this.list = [...this.list, ...arr].sort((a, b) => {
-            //   return a.name.length - b.name.length
-            // })
             this.$loading.hide()
           })
         }

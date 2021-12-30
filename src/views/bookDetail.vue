@@ -33,14 +33,15 @@
           @load="nextPage"
         >
           <div style="height: 20px" />
+          <div />
           <div
-            v-for="(item,index) in bookDetail.detail"
+            v-for="(item,index) in detailList"
             :key="index"
-            style="text-indent:30px"
-          >{{ item }}
+          >
+            <div v-if="item.type==='title'" style="color: #9a6e3a">{{ item.value }}</div>
+            <div v-else style="text-indent:30px">{{ item }}</div>
             <div style="height: 20px" />
           </div>
-          <div style="height: 200px" />
         </van-list>
       </van-pull-refresh>
     </div>
@@ -66,6 +67,7 @@ export default {
   props: {},
   data() {
     return {
+      detailList: [],
       detailUrl: '',
       from: '',
       bookName: '',
@@ -77,7 +79,8 @@ export default {
       active: -1,
       loading: false,
       finished: false,
-      refreshing: false
+      refreshing: false,
+      height: 0
     }
   },
   computed: {
@@ -95,6 +98,7 @@ export default {
   activated() {
   },
   mounted() {
+    this.height = document.documentElement.clientHeight - 46 + 'px'
   },
   created() {
     this.from = this.detailQuery.from
@@ -103,7 +107,7 @@ export default {
     this.menuUrl = this.detailQuery.menuUrl
     this.imgUrl = this.detailQuery.imgUrl
     this.title = this.bookName
-    this.loadData(true)
+    this.loadData(true, true)
   },
   methods: {
     ...mapActions([
@@ -116,11 +120,11 @@ export default {
         return
       }
       this.detailUrl = this.bookDetail.previewUrl
-      this.loadData()
+      this.loadData(false, true)
     },
     load(url) {
       this.detailUrl = url
-      this.loadData(true)
+      this.loadData(true, true)
     },
     change(index) {
       switch (index) {
@@ -138,9 +142,9 @@ export default {
         return
       }
       this.detailUrl = this.bookDetail.nextUrl
-      this.loadData()
+      this.loadData(false, false)
     },
-    loadData(flag) {
+    loadData(flag, isRefresh) {
       flag && this.$loading.show()
       this.$http.get('/getBookDetail', {
         params: {
@@ -153,7 +157,14 @@ export default {
         flag && this.$loading.hide()
         this.bookDetail = res
         this.title = this.bookDetail.title
-        window.scrollTo(0, 0)
+        if (isRefresh) {
+          this.detailList = this.bookDetail.detail
+          this.detailList.unshift({ type: 'title', value: this.title })
+          // window.scrollTo(0, 0)
+        } else {
+          this.detailList.push({ type: 'title', value: this.title })
+          this.detailList.push(...this.bookDetail.detail)
+        }
         const index = this.nowLookPage.findIndex(item => item.menuUrl === this.menuUrl)
         const obj = {
           menuUrl: this.menuUrl,
