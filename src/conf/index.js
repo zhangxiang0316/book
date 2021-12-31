@@ -36,3 +36,21 @@ export const typeList = [
   { name: '女生', value: 7 },
   { name: '完本', value: 0 }
 ]
+
+export const listenTypeList = [
+  { name: '热门', value: '/top.html' },
+  { name: '完结', value: '/quanben.html' },
+  { name: '连载', value: '/lianzai.html' },
+  { name: '最新', value: '/xinshu.html' }
+]
+
+export const listenBookType = [
+  { name: '有声小说', value: '/list/1.html' },
+  { name: '玄幻小说', value: '/list/27.html' },
+  { name: '都市小说', value: 'list/28.html' },
+  { name: '言情小说', value: '/list/29.html' },
+  { name: '惊悚小说', value: '/list/31.html' },
+  { name: '历史军事', value: '/list/32.html' },
+  { name: '网游科幻', value: '/list/33.html' }
+]
+

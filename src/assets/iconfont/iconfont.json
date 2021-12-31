@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2019101",
+      "name": "偷听",
+      "font_class": "touting",
+      "unicode": "e7c4",
+      "unicode_decimal": 59332
+    },
+    {
       "icon_id": "7765161",
       "name": "家长_书架",
       "font_class": "jiachang_shujia",

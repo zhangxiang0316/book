@@ -137,7 +137,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { Dialog } from 'vant'
 import BScroll from 'better-scroll'
 import { uniqBy } from 'loadsh'
-import { fromList, typeList } from '../conf'
+import { fromList, typeList } from '@/conf'
 
 export default {
   name: 'Home',

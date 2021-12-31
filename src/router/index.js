@@ -26,6 +26,12 @@ const routers = [
         name: 'mine',
         component: resolve => require(['@/views/mine.vue'], resolve),
         meta: { index: 1 }
+      },
+      {
+        path: '/listen',
+        name: 'listen',
+        component: resolve => require(['@/views/listen/index.vue'], resolve),
+        meta: { index: 1 }
       }
     ]
   },
@@ -81,6 +87,25 @@ const routers = [
     path: '/test',
     name: 'test',
     component: resolve => require(['@/views/test.vue'], resolve),
+    meta: { index: 2 }
+  },
+
+  {
+    path: '/listenMenuList',
+    name: 'listenMenuList',
+    component: resolve => require(['@/views/listen/menuList.vue'], resolve),
+    meta: { index: 3 }
+  },
+  {
+    path: '/bookTypeList',
+    name: 'bookTypeList',
+    component: resolve => require(['@/views/listen/bookTypeList.vue'], resolve),
+    meta: { index: 2 }
+  },
+  {
+    path: '/listenTypeList',
+    name: 'listenTypeList',
+    component: resolve => require(['@/views/listen/typeList.vue'], resolve),
     meta: { index: 2 }
   },
   /** 重定向*/

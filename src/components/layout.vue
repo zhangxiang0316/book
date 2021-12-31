@@ -15,6 +15,12 @@
         </template>
         首页
       </van-tabbar-item>
+      <van-tabbar-item replace to="/listen">
+        <template #icon>
+          <i class="iconfont icon-touting" />
+        </template>
+        听书
+      </van-tabbar-item>
       <van-tabbar-item replace to="/mine">
         <template #icon>
           <i class="iconfont icon-wode" />
