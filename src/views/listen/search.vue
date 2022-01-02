@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       bookName: '',
-      list: [],
+      list: []
     }
   },
   computed: {
