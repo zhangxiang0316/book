@@ -109,6 +109,12 @@ const routers = [
     meta: { index: 2 }
   },
   {
+    path: '/pingshu',
+    name: 'pingshu',
+    component: resolve => require(['@/views/listen/pingshu.vue'], resolve),
+    meta: { index: 2 }
+  },
+  {
     path: '/listenDetail',
     name: 'listenDetail',
     component: resolve => require(['@/views/listen/listenDetail.vue'], resolve),

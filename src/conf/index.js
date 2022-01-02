@@ -45,12 +45,24 @@ export const listenTypeList = [
 ]
 
 export const listenBookType = [
-  { name: '有声小说', value: '/list/1.html' },
+  // { name: '有声小说', value: '/list/1.html' },
   { name: '玄幻小说', value: '/list/27.html' },
   { name: '都市小说', value: 'list/28.html' },
   { name: '言情小说', value: '/list/29.html' },
   { name: '惊悚小说', value: '/list/31.html' },
   { name: '历史军事', value: '/list/32.html' },
   { name: '网游科幻', value: '/list/33.html' }
+]
+export const pingshu = [
+  { name: '单田芳', value: '/list/34.html' },
+  { name: '袁阔成', value: '/list/35.html' },
+  { name: '连丽如', value: '/list/36.html' },
+  { name: '刘兰芳', value: '/list/37.html' },
+  { name: '田连元', value: '/list/40.html' },
+  { name: '张少佐', value: '/list/38.html' },
+  { name: '王玥波', value: '/list/39.html' },
+  // { name: '粤语评书', value: '/list/41.html' },
+  // { name: '陈丽君', value: '/list/44.html' },
+  { name: '孙一评', value: '/list/45.html' }
 ]
 

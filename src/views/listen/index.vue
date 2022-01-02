@@ -20,14 +20,22 @@
           @click="$router.push({name:'listenSearch'})"
         />
       </van-sticky>
-      <van-tag v-for="item in menuList" :key="item.path" round color="#91DCD9" type="primary" @click="$router.push(item.path)">
-        {{ item.name }}
-      </van-tag>
+      <div style="display: flex;margin: 20px 0">
+        <div
+          v-for="item in menuList"
+          :key="item.path"
+          style="flex: 1;text-align: center"
+          @click="$router.push(item.path)"
+        >
+          <img :src="item.img" style="width: 50px;height: 50px;border-radius: 50%">
+          <div style="margin-top: 10px">{{ item.name }}</div>
+        </div>
+      </div>
 
       <div v-if="listenList.length">
-        <van-sidebar>
-          <van-sidebar-item title="我的书架" />
-        </van-sidebar>
+        <div class="leftBar">
+          我的书架
+        </div>
         <div style="border-bottom: 1px solid #eee" />
         <div class="recommand-wrap">
           <div ref="wrapper">
@@ -39,7 +47,14 @@
                 @click="toDetail(item)"
               >
                 <div class="cont-img">
-                  <van-image width="80" height="100" lazy-load radius="10" class="img" :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')" />
+                  <van-image
+                    width="80"
+                    height="100"
+                    lazy-load
+                    radius="10"
+                    class="img"
+                    :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
+                  />
                 </div>
                 <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
               </li>
@@ -116,8 +131,9 @@
 
 <script type="text/ecmascript-6">
 import { listenTypeList } from '@/conf'
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BScroll from 'better-scroll'
+
 export default {
   name: 'Index',
   components: {},
@@ -125,8 +141,9 @@ export default {
   data() {
     return {
       menuList: [
-        { name: '小说类型', path: '/bookTypeList' },
-        { name: '排行榜', path: '/listenTypeList' }
+        { name: '小说', path: '/bookTypeList', img: require('@/assets/img/xiaoshuo.jpeg') },
+        { name: '评书', path: '/pingshu', img: require('@/assets/img/ping.jpeg') },
+        { name: '排行榜', path: '/listenTypeList', img: require('@/assets/img/top.jpeg') }
       ],
       detail: {},
       active: 0,
@@ -165,7 +182,7 @@ export default {
         value: {
           url: item.url,
           menuUrl: item.menuUrl,
-          bookName: item.title,
+          bookName: item.bookName,
           imgUrl: item.imgUrl
         }
       })

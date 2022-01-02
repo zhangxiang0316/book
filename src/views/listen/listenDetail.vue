@@ -13,10 +13,15 @@
       left-arrow
       @click-left="$router.back()"
     />
-    <div style="width: 100%;text-align: center;margin-top: 20px">
-      <img class="img" :src="listenDetail.imgUrl" :class="{rotate:listenNow.isPlay}">
-      <div style="font-size: 15px;margin-top: 10px">{{ detail.title }}</div>
-      <div style="width: 100%;margin:10px auto;position: absolute;bottom:20px">
+    <div style="text-align: center;margin-top: 20px">
+      <img
+        class="img"
+        :src="listenDetail.imgUrl"
+        :style="{width:imgWidth,height:imgWidth}"
+        :class="{rotate:listenNow.isPlay}"
+      >
+      <div style="font-size: 15px;margin-top: 20px">{{ detail.title }}</div>
+      <div style="width: 100%;position: absolute;bottom:20px">
         <div style="line-height: 30px;margin-bottom: 20px">
           <span>速度：</span>
           <van-button
@@ -102,7 +107,8 @@ export default {
       totalTime: 0,
       timeNow: 0,
       isPaused: false,
-      speed: 1
+      speed: 1,
+      imgWidth: 0
     }
   },
   computed: {
@@ -122,6 +128,9 @@ export default {
   },
   created() {
     this.init()
+  },
+  mounted() {
+    this.imgWidth = document.body.clientWidth * 0.7 + 'px'
   },
   methods: {
     ...mapActions([
@@ -215,9 +224,11 @@ export default {
 .img {
   border-radius: 50%;
 }
-.rotate{
+
+.rotate {
   animation: rotate 10s linear infinite;
 }
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
