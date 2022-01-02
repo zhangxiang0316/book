@@ -37,7 +37,6 @@
                 v-for="item of nowLookPage"
                 :key="item.detailUrl"
                 class="cont-item"
-                @dblclick="deleteItem(item)"
                 @click="toDetail(item)"
               >
                 <div class="cont-img">

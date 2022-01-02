@@ -22,26 +22,28 @@
       placeholder="请输入"
       @search="searchBook"
     />
-    <van-cell
-      v-for="source in list"
-      :key="source.menuUrl"
-      :title="source.name"
-      :label="`${source.author}`"
-      is-link
-      border
-      @click="cellClick(source)"
-    >
-      <template #icon>
-        <van-image
-          style="margin-right: 10px"
-          width="32"
-          radius="3"
-          height="40"
-          error-icon="fail"
-          :src="source.imgUrl?source.imgUrl:require('@/assets/img/nocover.jpg')"
-        />
-      </template>
-    </van-cell>
+    <div style="margin-top: 46px;width: 100%">
+      <van-cell
+        v-for="source in list"
+        :key="source.menuUrl"
+        :title="source.name"
+        :label="`${source.author}`"
+        is-link
+        border
+        @click="cellClick(source)"
+      >
+        <template #icon>
+          <van-image
+            style="margin-right: 10px"
+            width="32"
+            radius="3"
+            height="40"
+            error-icon="fail"
+            :src="source.imgUrl?source.imgUrl:require('@/assets/img/nocover.jpg')"
+          />
+        </template>
+      </van-cell>
+    </div>
   </div>
 </template>
 

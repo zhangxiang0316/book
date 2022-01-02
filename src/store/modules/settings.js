@@ -8,7 +8,8 @@ const state = {
   isNight: false,
   detailQuery: {},
   listenDetail: {},
-  listenNow: {}
+  listenNow: {},
+  listenList: [] // 听书历史
 }
 
 const mutations = {
@@ -36,7 +37,8 @@ const getters = {
   detailQuery: state => state.detailQuery,
   bookFromList: state => state.bookFromList,
   listenDetail: state => state.listenDetail,
-  listenNow: state => state.listenNow
+  listenNow: state => state.listenNow,
+  listenList: state => state.listenList
 }
 
 export default {

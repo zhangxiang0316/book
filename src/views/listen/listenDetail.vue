@@ -108,7 +108,8 @@ export default {
   computed: {
     ...mapGetters([
       'listenDetail',
-      'listenNow'
+      'listenNow',
+      'listenList'
     ]),
     percentage() {
       return parseInt(this.timeNow * 100 / this.totalTime) + ''
@@ -185,6 +186,21 @@ export default {
           value: { isPlay: false }
         })
         this.toPlay()
+        const index = this.listenList.findIndex(items => items.menuUrl === item.menuUrl)
+        if (index === -1) {
+          this.listenList.unshift(item)
+          this.changeSetting({
+            key: 'listenList',
+            value: this.listenList
+          })
+        } else {
+          this.listenList.splice(index, 1)
+          this.listenList.unshift(item)
+          this.changeSetting({
+            key: 'listenList',
+            value: this.listenList
+          })
+        }
       })
     },
     changeTime() {
