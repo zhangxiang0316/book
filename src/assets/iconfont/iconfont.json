@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2674483",
+      "name": "暂停",
+      "font_class": "zanting",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "4954913",
+      "name": "开始",
+      "font_class": "kaishi",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "7594042",
+      "name": "24gl-nextCircle",
+      "font_class": "24gl-nextCircle",
+      "unicode": "ea6b",
+      "unicode_decimal": 60011
+    },
+    {
+      "icon_id": "7594073",
+      "name": "24gl-previousCircle",
+      "font_class": "24gl-previousCircle",
+      "unicode": "ea73",
+      "unicode_decimal": 60019
+    },
+    {
       "icon_id": "2019101",
       "name": "偷听",
       "font_class": "touting",

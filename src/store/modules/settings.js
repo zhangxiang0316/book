@@ -4,10 +4,11 @@ const state = {
   lineHeight: 24,
   color: '#333',
   nowLookPage: [], // 阅读历史
-  bookFromList: [
-  ],
+  bookFromList: [],
   isNight: false,
-  detailQuery: {}
+  detailQuery: {},
+  listenDetail: {},
+  listenNow: {}
 }
 
 const mutations = {
@@ -33,7 +34,9 @@ const getters = {
   nowLookPage: state => state.nowLookPage,
   isNight: state => state.isNight,
   detailQuery: state => state.detailQuery,
-  bookFromList: state => state.bookFromList
+  bookFromList: state => state.bookFromList,
+  listenDetail: state => state.listenDetail,
+  listenNow: state => state.listenNow
 }
 
 export default {

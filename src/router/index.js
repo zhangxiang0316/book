@@ -108,6 +108,18 @@ const routers = [
     component: resolve => require(['@/views/listen/typeList.vue'], resolve),
     meta: { index: 2 }
   },
+  {
+    path: '/listenDetail',
+    name: 'listenDetail',
+    component: resolve => require(['@/views/listen/listenDetail.vue'], resolve),
+    meta: { index: 4 }
+  },
+  {
+    path: '/listenSearch',
+    name: 'listenSearch',
+    component: resolve => require(['@/views/listen/search.vue'], resolve),
+    meta: { index: 2 }
+  },
   /** 重定向*/
   {
     path: '*',

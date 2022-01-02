@@ -117,44 +117,15 @@ export default {
     },
     cellClick(item) {
       this.changeSetting({
-        key: 'detailQuery',
+        key: 'listenDetail',
         value: {
-          detailUrl: item.url,
+          url: item.url,
           menuUrl: this.menuUrl,
           bookName: this.title,
-          from: item.from,
           imgUrl: this.info.imgUrl
         }
       })
-      this.play(item)
-      // this.$router.push({
-      //   name: 'bookDetail'
-      // })
-    },
-    play(item) {
-      if (!this.audio) {
-        this.audio = new Audio()
-        this.audio.addEventListener('timeupdate', () => {
-          this.totalTime = this.audio.duration
-          console.log(this.totalTime)
-          if (parseInt(this.timeNow) >= parseInt(this.totalTime)) {
-            this.play({ url: this.bofang.nextUrl })
-          }
-        })
-      }
-      this.$http.get('/tingshu/detail', {
-        params: {
-          detailUrl: item.url
-        }
-      }).then(res => {
-        this.bofang = res
-        this.audio.src = res.url
-        console.log(this.audio.src)
-        this.audio.play()
-        this.time = setInterval(() => {
-          this.timeNow = this.audio.currentTime
-        }, 500)
-      })
+      this.$router.push({ name: 'listenDetail' })
     }
   }
 }

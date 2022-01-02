@@ -17,7 +17,7 @@
           shape="round"
           placeholder="请输入"
           readonly
-          @click="$router.push({name:'search'})"
+          @click="$router.push({name:'listenSearch'})"
         />
       </van-sticky>
       <van-tag v-for="item in menuList" :key="item.path" round color="#91DCD9" type="primary" @click="$router.push(item.path)">

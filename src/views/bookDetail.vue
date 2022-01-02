@@ -11,7 +11,7 @@
       :placeholder="true"
       :title="title"
       left-arrow
-      @click-right="speak"
+      @click-right="$refs.bottomMenu.show = true"
       @click-left="$router.back()"
     >
       <template #right>
@@ -194,17 +194,6 @@ export default {
         flag && this.$loading.hide()
         this.$toast.fail('加载失败')
       })
-    },
-
-    speak() {
-      const url = 'http://tts.baidu.com/text2audio.mp3?lan=zh&ie=UTF-8&spd=5&text=' + encodeURI(this.bookDetail.detail)
-      const audio = new Audio()
-      audio.src = url
-      audio.addEventListener('timeupdate', () => {
-        console.log(audio.duration)
-      })
-      console.log(audio.src)
-      audio.play()
     }
   }
 }

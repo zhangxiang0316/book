@@ -5,18 +5,28 @@
         <router-view />
       </keep-alive>
     </transition>
+    <drag-ball-component v-show="$route.name!=='listenDetail' && listenNow.isPlay" />
   </div>
 </template>
 
 <script>
+import dragBallComponent from './components/dragBallComponent'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
-  components: {},
+  components: {
+    dragBallComponent
+  },
   data() {
     return {
       transitionName: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'listenNow'
+    ])
   },
   watch: {
     $route(to, from) {
