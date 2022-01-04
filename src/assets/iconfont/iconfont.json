@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2824231",
+      "name": "快进15秒-01",
+      "font_class": "kuaijinmiao-",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "2824239",
+      "name": "快退15秒-01",
+      "font_class": "kuaituimiao-",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "4685777",
+      "name": "速度",
+      "font_class": "Group-",
+      "unicode": "e6ac",
+      "unicode_decimal": 59052
+    },
+    {
+      "icon_id": "7461119",
+      "name": "播放列表",
+      "font_class": "bofangliebiao",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
       "icon_id": "2674483",
       "name": "暂停",
       "font_class": "zanting",

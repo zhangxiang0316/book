@@ -9,7 +9,8 @@ const state = {
   detailQuery: {},
   listenDetail: {},
   listenNow: {},
-  listenList: [] // 听书历史
+  listenList: [], // 听书历史
+  speed: 1 // 听书倍速
 }
 
 const mutations = {
@@ -38,7 +39,8 @@ const getters = {
   bookFromList: state => state.bookFromList,
   listenDetail: state => state.listenDetail,
   listenNow: state => state.listenNow,
-  listenList: state => state.listenList
+  listenList: state => state.listenList,
+  speed: state => state.speed
 }
 
 export default {

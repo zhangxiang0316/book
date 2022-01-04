@@ -8,6 +8,12 @@ const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   render(state) {
     return { ...state }
+  },
+  reducer: state => {
+    console.log('VuexPersistence:state', state)
+    return {
+      listenNow: false
+    }
   }
 })
 

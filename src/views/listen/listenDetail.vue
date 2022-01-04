@@ -22,25 +22,15 @@
       >
       <div style="font-size: 15px;margin-top: 20px">{{ detail.title }}</div>
       <div style="width: 100%;position: absolute;bottom:20px">
-        <div style="line-height: 30px;margin-bottom: 20px">
-          <span>速度：</span>
-          <van-button
-            style="width: 30px;margin-right: 10px"
-            round
-            type="info"
-            size="small"
-            icon="plus"
-            @click="setSpeed(1)"
-          />
-          {{ speed }}
-          <van-button
-            round
-            type="info"
-            size="small"
-            style="margin-left: 10px;width: 30px"
-            icon="minus"
-            @click="setSpeed(-1)"
-          />
+        <div style="display: flex">
+          <div style="margin: 20px;flex: 1" @click="$refs.selectMultiple.show=true">
+            <div><i class="iconfont icon-Group-" style="font-size: 30px;color: #888" /></div>
+            <div style="margin: 10px"> {{ speed }}</div>
+          </div>
+          <div style="margin: 20px;flex: 1" @click="$refs.leftMenu.show=true">
+            <div><i class="iconfont icon-bofangliebiao" style="font-size: 30px;color: #888" /></div>
+            <div style="margin: 10px"> 播放列表</div>
+          </div>
         </div>
         <div v-if="detail.url" style="display: flex;">
           <div style="width: 100px;text-align: right;margin-right: 10px">
@@ -59,11 +49,14 @@
             {{ parseInt(totalTime)|formTime }}
           </div>
         </div>
-        <div style="display: flex;margin-top: 20px;line-height: 40px">
-          <div style="flex: 1;">
+        <div style="display: flex;margin-top: 20px;line-height: 40px;padding: 0 10%">
+          <div style="flex:1">
+            <i class="iconfont icon-kuaituimiao-" style="font-size: 30px" @click="tui" />
+          </div>
+          <div style="flex: 3;">
             <i class="iconfont icon-24gl-previousCircle" style="font-size: 30px" @click="pre" />
           </div>
-          <div style="flex: 1;">
+          <div style="flex: 3;">
             <i
               class="iconfont"
               :class="[{'icon-zanting':listenNow.isPlay},{'icon-kaishi':!listenNow.isPlay}]"
@@ -71,21 +64,30 @@
               @click="toPlay"
             />
           </div>
-          <div style="flex: 1;">
+          <div style="flex: 3;">
             <i class="iconfont icon-24gl-nextCircle" style="font-size: 30px" @click="next" />
+          </div>
+          <div style="flex:1">
+            <i class="iconfont icon-kuaijinmiao-" style="font-size: 30px" @click="kuai" />
           </div>
         </div>
       </div>
     </div>
+    <select-multiple ref="selectMultiple" @setMultiple="setSpeed" />
+    <left-menu ref="leftMenu" :url="listenDetail.menuUrl" :now-url="listenDetail.url" @loadData="play" />
   </div>
 </template>
 <script type="text/ecmascript-6">
 import { mapActions, mapGetters } from 'vuex'
-import { floor } from 'loadsh'
+import selectMultiple from './components/selectMultiple'
+import leftMenu from './components/leftMenu'
 
 export default {
   name: 'ListenDetail',
-  components: {},
+  components: {
+    leftMenu,
+    selectMultiple
+  },
   filters: {
     formTime(val) {
       if (!val) {
@@ -107,7 +109,6 @@ export default {
       totalTime: 0,
       timeNow: 0,
       isPaused: false,
-      speed: 1,
       imgWidth: 0
     }
   },
@@ -115,7 +116,8 @@ export default {
     ...mapGetters([
       'listenDetail',
       'listenNow',
-      'listenList'
+      'listenList',
+      'speed'
     ]),
     percentage() {
       return parseInt(this.timeNow * 100 / this.totalTime) + ''
@@ -159,6 +161,15 @@ export default {
       } else {
         this.audio.play()
       }
+      this.setSpeed()
+    },
+    kuai() {
+      if (this.audio.currentTime < this.totalTime) { this.audio.currentTime += 15 }
+    },
+    tui() {
+      if (this.audio.currentTime > 15) { this.audio.currentTime -= 15 } else {
+        this.audio.currentTime = 0
+      }
     },
     pre() {
       this.listenDetail.url = this.detail.previewUrl
@@ -170,13 +181,7 @@ export default {
       this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
       this.play(this.listenDetail)
     },
-    setSpeed(type) {
-      if (type > 0) {
-        this.speed = this.speed + 0.1
-      } else {
-        this.speed = this.speed - 0.1
-      }
-      this.speed = floor(this.speed, 1)
+    setSpeed() {
       this.audio.playbackRate = this.speed
     },
     play(item) {
@@ -220,7 +225,9 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-
+.iconfont{
+  color: #888;
+}
 .img {
   border-radius: 50%;
 }

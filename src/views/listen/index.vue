@@ -27,7 +27,7 @@
           style="flex: 1;text-align: center"
           @click="$router.push(item.path)"
         >
-          <img :src="item.img" style="width: 50px;height: 50px;border-radius: 50%">
+          <img :src="item.img" style="width: 35px;height: 35px;border-radius: 50%">
           <div style="margin-top: 10px">{{ item.name }}</div>
         </div>
       </div>

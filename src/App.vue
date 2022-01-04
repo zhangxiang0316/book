@@ -11,7 +11,7 @@
 
 <script>
 import dragBallComponent from './components/dragBallComponent'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -38,6 +38,14 @@ export default {
         }
       }
     }
+  },
+  created() {
+    this.changeSetting({ key: 'listenNow', value: { isPlay: false }})
+  },
+  methods: {
+    ...mapActions([
+      'changeSetting'
+    ])
   }
 }
 </script>

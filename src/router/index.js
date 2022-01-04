@@ -132,9 +132,31 @@ const routers = [
     redirect: { name: 'home' } // 重定向
   }
 ]
+
 Vue.use(Router)
+
 const vueRouter = new Router({
   routes: routers
 })
 
+// 解决编程式路由往同一地址跳转时会报错的情况
+const originalPush = Router.prototype.push
+const originalReplace = Router.prototype.replace
+
+// push
+Router.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, onReject)
+  }
+  return originalPush.call(this, location).catch(err => err)
+}
+// replace
+Router.prototype.replace = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalReplace.call(this, location, onResolve, onReject)
+  }
+  return originalReplace.call(this, location).catch(err => err)
+}
+
 export default vueRouter
+
