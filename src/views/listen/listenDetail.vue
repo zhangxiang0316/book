@@ -24,15 +24,19 @@
       <div style="width: 100%;position: absolute;bottom:20px">
         <div style="display: flex">
           <div style="margin: 20px;flex: 1" @click="$refs.selectMultiple.show=true">
+            <div><i class="iconfont icon-kuaijinmiao-" style="font-size: 30px;color: #888" /></div>
+            <div style="margin: 10px">定时</div>
+          </div>
+          <div style="margin: 20px;flex: 1" @click="$refs.selectMultiple.show=true">
             <div><i class="iconfont icon-Group-" style="font-size: 30px;color: #888" /></div>
-            <div style="margin: 10px"> {{ speed }}</div>
+            <div style="margin: 10px"> x {{ speed }}</div>
           </div>
           <div style="margin: 20px;flex: 1" @click="$refs.leftMenu.show=true">
             <div><i class="iconfont icon-bofangliebiao" style="font-size: 30px;color: #888" /></div>
-            <div style="margin: 10px"> 播放列表</div>
+            <div style="margin: 10px">播放列表</div>
           </div>
         </div>
-        <div v-if="detail.url" style="display: flex;">
+        <div v-if="totalTime>0" style="display: flex;">
           <div style="width: 100px;text-align: right;margin-right: 10px">
             {{ parseInt(timeNow)|formTime }}
           </div>
@@ -94,7 +98,7 @@ export default {
         return ''
       }
       if (val < 60) {
-        return `${val}秒`
+        return `0分${val}秒`
       } else {
         return `${parseInt(val / 60)}分${val % 60}秒`
       }
@@ -125,7 +129,7 @@ export default {
   },
   activated() {
     if (this.$route.params.form !== 'ball') {
-      this.play(this.listenDetail)
+      this.play()
     }
   },
   created() {
@@ -146,7 +150,7 @@ export default {
           if (parseInt(this.timeNow) >= parseInt(this.totalTime)) {
             this.listenDetail.url = this.detail.nextUrl
             this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
-            this.play(this.listenDetail)
+            this.play()
           }
         })
       }
@@ -164,30 +168,34 @@ export default {
       this.setSpeed()
     },
     kuai() {
-      if (this.audio.currentTime < this.totalTime) { this.audio.currentTime += 15 }
+      if (this.audio.currentTime < this.totalTime) {
+        this.audio.currentTime += 15
+      }
     },
     tui() {
-      if (this.audio.currentTime > 15) { this.audio.currentTime -= 15 } else {
+      if (this.audio.currentTime > 15) {
+        this.audio.currentTime -= 15
+      } else {
         this.audio.currentTime = 0
       }
     },
     pre() {
       this.listenDetail.url = this.detail.previewUrl
       this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
-      this.play(this.listenDetail)
+      this.play()
     },
     next() {
       this.listenDetail.url = this.detail.nextUrl
       this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
-      this.play(this.listenDetail)
+      this.play()
     },
     setSpeed() {
       this.audio.playbackRate = this.speed
     },
-    play(item) {
+    play() {
       this.$http.get('/tingshu/detail', {
         params: {
-          detailUrl: item.url
+          detailUrl: this.listenDetail.url
         }
       }).then(res => {
         this.detail = res
@@ -200,16 +208,16 @@ export default {
           value: { isPlay: false }
         })
         this.toPlay()
-        const index = this.listenList.findIndex(items => items.menuUrl === item.menuUrl)
+        const index = this.listenList.findIndex(listen => listen.menuUrl === this.listenDetail.menuUrl)
         if (index === -1) {
-          this.listenList.unshift(item)
+          this.listenList.unshift(this.listenDetail)
           this.changeSetting({
             key: 'listenList',
             value: this.listenList
           })
         } else {
           this.listenList.splice(index, 1)
-          this.listenList.unshift(item)
+          this.listenList.unshift(this.listenDetail)
           this.changeSetting({
             key: 'listenList',
             value: this.listenList
@@ -225,9 +233,10 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-.iconfont{
+.iconfont {
   color: #888;
 }
+
 .img {
   border-radius: 50%;
 }

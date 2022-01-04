@@ -22,6 +22,7 @@
 <script type="text/ecmascript-6">
 import virtualList from 'vue-virtual-scroll-list'
 import menuItem from '@/components/menuItem'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'LeftMenu',
   components: {
@@ -45,7 +46,11 @@ export default {
       show: false
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'listenDetail'
+    ])
+  },
   watch: {
     show(val) {
       if (val) {
@@ -59,6 +64,9 @@ export default {
     this.loadData()
   },
   methods: {
+    ...mapActions([
+      'changeSetting'
+    ]),
     loadData() {
       if (this.list.length) {
         this.$nextTick(() => {
@@ -78,7 +86,9 @@ export default {
       })
     },
     cellClick(item) {
-      this.$emit('loadData', { url: item.url })
+      this.listenDetail.url = item.url
+      this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
+      this.$emit('loadData', this.listenDetail)
       this.show = false
     }
   }
