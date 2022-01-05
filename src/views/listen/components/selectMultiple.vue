@@ -4,51 +4,17 @@
 * 备注：
 */
 <template>
-  <div class="selectMultiple">
-    <van-popup v-model="show" round position="bottom">
-      <van-radio-group v-model="speed">
-        <van-cell-group>
-          <van-cell title="X 0.5" clickable @click="setMultiple( '0.5')">
-            <template #right-icon>
-              <van-radio name="0.5" />
-            </template>
-          </van-cell>
-          <van-cell title="X 0.75" clickable @click="setMultiple( '0.75')">
-            <template #right-icon>
-              <van-radio name="0.75" />
-            </template>
-          </van-cell>
-
-          <van-cell title="X 1" clickable @click="setMultiple( '1')">
-            <template #right-icon>
-              <van-radio name="1" />
-            </template>
-          </van-cell>
-
-          <van-cell title="X 1.25" clickable @click="setMultiple( '1.25')">
-            <template #right-icon>
-              <van-radio name="1.25" />
-            </template>
-          </van-cell>
-          <van-cell title="X 1.5" clickable @click="setMultiple( '1.5')">
-            <template #right-icon>
-              <van-radio name="1.5" />
-            </template>
-          </van-cell>
-          <van-cell title="X 1.75" clickable @click="setMultiple( '1.75')">
-            <template #right-icon>
-              <van-radio name="1.75" />
-            </template>
-          </van-cell>
-          <van-cell title="X 2" clickable @click="setMultiple( '2')">
-            <template #right-icon>
-              <van-radio name="2" />
-            </template>
-          </van-cell>
-        </van-cell-group>
-      </van-radio-group>
-    </van-popup>
-  </div>
+  <van-popup v-model="show" round position="bottom">
+    <van-radio-group v-model="speed">
+      <van-cell-group>
+        <van-cell v-for="item in list" :key="item.value" :title="item.name" clickable @click="setMultiple(item.value)">
+          <template #right-icon>
+            <van-radio :name="item.value" />
+          </template>
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-popup>
 </template>
 
 <script type="text/ecmascript-6">
@@ -60,7 +26,16 @@ export default {
   props: {},
   data() {
     return {
-      show: false
+      show: false,
+      list: [
+        { name: 'X 0.5', value: '0.5' },
+        { name: 'X 0.75', value: '0.75' },
+        { name: 'X 1', value: '1' },
+        { name: 'X 1.25', value: '1.25' },
+        { name: 'X 1.5', value: '1.5' },
+        { name: 'X 1.75', value: '1.75' },
+        { name: 'X 2', value: '2' }
+      ]
     }
   },
   computed: {

@@ -20,10 +20,12 @@
         :style="{width:imgWidth,height:imgWidth}"
         :class="{rotate:listenNow.isPlay}"
       >
-      <div style="font-size: 15px;margin-top: 20px">{{ detail.title }}</div>
+      <div style="font-size: 15px;margin-top: 20px">
+        {{ detail.title }}
+      </div>
       <div style="width: 100%;position: absolute;bottom:20px">
         <div style="display: flex">
-          <div style="margin: 20px;flex: 1" @click="$refs.selectMultiple.show=true">
+          <div style="margin: 20px;flex: 1" @click="$refs.clocking.show=true">
             <div><i class="iconfont icon-kuaijinmiao-" style="font-size: 30px;color: #888" /></div>
             <div style="margin: 10px">定时</div>
           </div>
@@ -79,18 +81,21 @@
     </div>
     <select-multiple ref="selectMultiple" @setMultiple="setSpeed" />
     <left-menu ref="leftMenu" :url="listenDetail.menuUrl" :now-url="listenDetail.url" @loadData="play" />
+    <clocking ref="clocking" />
   </div>
 </template>
 <script type="text/ecmascript-6">
 import { mapActions, mapGetters } from 'vuex'
 import selectMultiple from './components/selectMultiple'
 import leftMenu from './components/leftMenu'
+import clocking from './components/clocking'
 
 export default {
   name: 'ListenDetail',
   components: {
     leftMenu,
-    selectMultiple
+    selectMultiple,
+    clocking
   },
   filters: {
     formTime(val) {
@@ -200,6 +205,7 @@ export default {
       }).then(res => {
         this.detail = res
         this.audio.src = res.url
+        console.log(this.audio.src)
         this.time = setInterval(() => {
           this.timeNow = this.audio.currentTime
         }, 500)
