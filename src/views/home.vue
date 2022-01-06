@@ -149,7 +149,8 @@ export default {
       active: 0,
       bookName: '',
       detail: {},
-      typeList: typeList
+      typeList: typeList,
+      scroll: null
     }
   },
   computed: {
