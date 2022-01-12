@@ -14,12 +14,17 @@
       @click-left="$router.back()"
     />
     <div style="text-align: center;margin-top: 20px">
-      <img
-        class="img"
-        :src="listenDetail.imgUrl"
-        :style="{width:imgWidth,height:imgWidth}"
-        :class="{rotate:listenNow.isPlay}"
+      <div
+        :style="{width:imgWidth+'px',height:imgWidth+'px'}"
+        class="imgbac"
       >
+        <img
+          class="img"
+          :src="listenDetail.imgUrl"
+          :style="{width:imgWidth-80+'px',height:imgWidth-80+'px'}"
+          :class="{rotate:listenNow.isPlay}"
+        >
+      </div>
       <div style="font-size: 15px;margin-top: 20px">
         {{ detail.title }}
       </div>
@@ -141,7 +146,7 @@ export default {
     this.init()
   },
   mounted() {
-    this.imgWidth = document.body.clientWidth * 0.7 + 'px'
+    this.imgWidth = document.body.clientWidth * 0.7
   },
   methods: {
     ...mapActions([
@@ -152,7 +157,9 @@ export default {
         this.audio = new Audio()
         this.audio.addEventListener('timeupdate', () => {
           this.totalTime = this.audio.duration
-          if (parseInt(this.timeNow) >= parseInt(this.totalTime)) {
+          this.timeNow = this.audio.currentTime
+          if (this.audio.ended) {
+            this.time = null
             this.listenDetail.url = this.detail.nextUrl
             this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
             this.play()
@@ -205,10 +212,6 @@ export default {
       }).then(res => {
         this.detail = res
         this.audio.src = res.url
-        console.log(this.audio.src)
-        this.time = setInterval(() => {
-          this.timeNow = this.audio.currentTime
-        }, 500)
         this.changeSetting({
           key: 'listenNow',
           value: { isPlay: false }
@@ -243,8 +246,15 @@ export default {
   color: #888;
 }
 
-.img {
-  border-radius: 50%;
+.imgbac {
+  background: url("../../assets/img/img-bg.png");
+  background-size: 100%;
+  margin-left: 15%;
+
+  .img {
+    border-radius: 50%;
+    margin-top: 40px;
+  }
 }
 
 .rotate {
@@ -259,4 +269,5 @@ export default {
     transform: rotate(360deg);
   }
 }
+
 </style>
