@@ -174,20 +174,14 @@ export default {
           from: this.from,
           imgUrl: this.imgUrl
         }
-        if (index === -1) {
-          this.nowLookPage.unshift(obj)
-          this.changeSetting({
-            key: 'nowLookPage',
-            value: this.nowLookPage
-          })
-        } else {
+        if (index !== -1) {
           this.nowLookPage.splice(index, 1)
-          this.nowLookPage.unshift(obj)
-          this.changeSetting({
-            key: 'nowLookPage',
-            value: this.nowLookPage
-          })
         }
+        this.nowLookPage.unshift(obj)
+        this.changeSetting({
+          key: 'nowLookPage',
+          value: this.nowLookPage
+        })
       }).catch(() => {
         this.refreshing = false
         this.loading = false

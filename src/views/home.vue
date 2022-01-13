@@ -40,7 +40,13 @@
                 @click="toDetail(item)"
               >
                 <div class="cont-img">
-                  <van-image width="80" height="100" lazy-load radius="10" class="img" :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')" />
+                  <van-image
+                    width="80"
+                    height="100"
+                    radius="10"
+                    class="img"
+                    :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
+                  />
                   <div class="from">{{ item.from }}</div>
                 </div>
                 <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
@@ -111,7 +117,10 @@
                 <div style="flex: 1;max-height: 80px;margin-left: 8px">
                   <div style="font-size: 15px;line-height: 22px">{{ item.name }}</div>
                   <div style="font-size: 14px;line-height: 22px">{{ item.author }}</div>
-                  <div style="font-size: 12px;line-height: 20px" class="van-multi-ellipsis--l3">{{ item.disc.trim() }}</div>
+                  <div style="font-size: 12px;line-height: 20px" class="van-multi-ellipsis--l3">{{
+                    item.disc.trim()
+                  }}
+                  </div>
                 </div>
               </div>
               <van-cell
@@ -131,9 +140,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-
 import { mapActions, mapGetters } from 'vuex'
-import { Dialog } from 'vant'
 import BScroll from 'better-scroll'
 import { uniqBy } from 'loadsh'
 import { fromList, typeList } from '@/conf'
@@ -182,20 +189,6 @@ export default {
     setBookFromList() {
       const list = uniqBy([...this.bookFromList, ...fromList], 'value')
       this.changeSetting({ key: 'bookFromList', value: list })
-    },
-    deleteItem(item) {
-      Dialog.alert({
-        message: `确认删除${item.name}`
-      }).then(() => {
-        const index = this.nowLookPage.findIndex(item => item.menuUrl === this.menuUrl)
-        this.nowLookPage.splice(index, 1)
-        this.changeSetting({
-          key: 'nowLookPage',
-          value: this.nowLookPage
-        })
-      }).catch(() => {
-        // on cancel
-      })
     },
     verScroll() {
       if (this.nowLookPage.length === 0) {

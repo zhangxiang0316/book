@@ -50,7 +50,6 @@
                   <van-image
                     width="80"
                     height="100"
-                    lazy-load
                     radius="10"
                     class="img"
                     :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
@@ -102,9 +101,9 @@
                 :src="item.imgUrl"
               />
               <div style="flex: 1;max-height: 100px;margin-left: 8px">
-                <div style="font-size: 16px;line-height: 28px" class="van-ellipsis">{{ item.name }}</div>
-                <div style="font-size: 13px;line-height: 28px" class="van-ellipsis">{{ item.author }}</div>
-                <div style="font-size: 12px;line-height: 20px" class="van-multi-ellipsis--l3">
+                <div style="font-size: 16px;line-height: 22px" class="van-ellipsis">{{ item.name }}</div>
+                <div style="font-size: 13px;line-height: 22px" class="van-ellipsis">{{ item.author }}</div>
+                <div style="font-size: 11px;line-height: 18px" class="van-multi-ellipsis--l3">
                   {{ item.disc.trim() }}
                 </div>
               </div>
@@ -123,6 +122,7 @@
           :title="item.name"
           :value="item.type"
           :label="item.updateName"
+          @click="cellClick(item)"
         />
       </div>
     </van-pull-refresh>
@@ -194,7 +194,6 @@ export default {
         return
       }
       const width = this.listenList.length * 100 + 20// 动态计算出滚动区域的大小，前面已经说过了，产生滚动的原因是滚动区域宽度大于父盒子宽度
-      console.log(width)
       this.$refs.cont.style.width = width + 'px' // 修改滚动区域的宽度
       this.$nextTick(() => {
         if (!this.scroll) {

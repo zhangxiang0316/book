@@ -132,10 +132,7 @@ export default {
       'listenNow',
       'listenList',
       'speed'
-    ]),
-    percentage() {
-      return parseInt(this.timeNow * 100 / this.totalTime) + ''
-    }
+    ])
   },
   activated() {
     if (this.$route.params.form !== 'ball') {
@@ -159,10 +156,7 @@ export default {
           this.totalTime = this.audio.duration
           this.timeNow = this.audio.currentTime
           if (this.audio.ended) {
-            this.time = null
-            this.listenDetail.url = this.detail.nextUrl
-            this.changeSetting({ key: 'listenDetail', value: this.listenDetail })
-            this.play()
+            this.next()
           }
         })
       }
@@ -205,33 +199,23 @@ export default {
       this.audio.playbackRate = this.speed
     },
     play() {
-      this.$http.get('/tingshu/detail', {
-        params: {
-          detailUrl: this.listenDetail.url
-        }
-      }).then(res => {
+      this.$http.get('/tingshu/detail', { params: { detailUrl: this.listenDetail.url }}).then(res => {
         this.detail = res
         this.audio.src = res.url
         this.changeSetting({
           key: 'listenNow',
           value: { isPlay: false }
         })
-        this.toPlay()
         const index = this.listenList.findIndex(listen => listen.menuUrl === this.listenDetail.menuUrl)
-        if (index === -1) {
-          this.listenList.unshift(this.listenDetail)
-          this.changeSetting({
-            key: 'listenList',
-            value: this.listenList
-          })
-        } else {
+        if (index !== -1) {
           this.listenList.splice(index, 1)
-          this.listenList.unshift(this.listenDetail)
-          this.changeSetting({
-            key: 'listenList',
-            value: this.listenList
-          })
         }
+        this.listenList.unshift(this.listenDetail)
+        this.changeSetting({
+          key: 'listenList',
+          value: this.listenList
+        })
+        this.toPlay()
       })
     },
     changeTime() {
