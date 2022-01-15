@@ -13,7 +13,10 @@
       left-arrow
       @click-left="$router.back()"
     />
-    <div style="text-align: center;margin-top: 20px">
+    <div style="text-align: center;margin-top: 20px;">
+      <div style="position: absolute;right: 18%" class="zhizhen">
+        <img src="@/assets/img/zhen.png" class="zhen" :class="[{zhenPlay:listenNow.isPlay}]" @click="toPlay">
+      </div>
       <div
         :style="{width:imgWidth+'px',height:imgWidth+'px'}"
         class="imgbac"
@@ -228,6 +231,33 @@ export default {
 <style scoped lang="less" rel="stylesheet/less">
 .iconfont {
   color: #888;
+}
+
+.zhen {
+  transform: rotate(-20deg);
+  transition: all .3s;
+  -webkit-transform-origin: top;
+  -ms-transform-origin: top;
+  transform-origin: top;
+}
+
+.zhizhen::before {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  width: 18px;
+  height: 18px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAA51BMVEUGBgYAAAAAAADh4eHT09PBwcEAAAC2trbl5eUAAAAAAAC6urrHx8fm5ubk5OT9/f339/f19fXv7+/h4eHs7Oza2trd3d3k5OTMzMy6urrk5OTc3Ny2trbk5OTg4OCtra1ISEjPz88NDQ3v7+/39/fv7+/l5eX19fXn5+fV1dXS0tLFxcXn5+fAwMDg4ODBwcHR0dHi4uLe3t7h4eHMzMzCwsLY2Ni1tbXJycne3t7S0tLKysrg4OCgoKDZ2dmNjY2AgIDe3t7Pz8/////19fX09PTs7Oz39/f6+vr5+fnx8fHw8PDv7+/BEK5NAAAAQ3RSTlMCAASBhYsGjoALCY2Jemrx5NG4srGDfHVwZ2JdU0YpHw4KB97azcvKyry2pJ6dm5iWjYqJgmloWVFOST45MygmGhcQS+x9PgAAANpJREFUGNM1z9dywjAQhWGhldzt0FsgBNJ77z1HNmnv/zzRLvCPNKP9Zm+kapx6HuZ5MZ4uBr4fRRQRUdTbkNGfz5yovddoXlHkzZNSQ7qow7d2TL2pYnqlzjYwd94uaSz0QKfAX1VVQLNTKG7dtIHfsvxxaJjuklqAc678xo7paqZHcw58OTcHWuZWaGKyfUh1a56E9H2W7rJsnWX9mRLa7Nvw5PDgKLTXE16qsY1sGoapvXkPVhQkb6PB4O4lnmkPTErrJInjOJEd+bZgEGgtwiQmiQitdPn+B3YeGfBlRw3fAAAAAElFTkSuQmCC) center no-repeat;
+  background-size: 100%;
+}
+
+.zhenPlay {
+  transform: rotate(-0deg);
+  transition: all .3s;
+  -webkit-transform-origin: top;
+  -ms-transform-origin: top;
+  transform-origin: top;
 }
 
 .imgbac {
