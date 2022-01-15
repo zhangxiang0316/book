@@ -27,7 +27,7 @@
         v-for="source in list"
         :key="source.menuUrl"
         :title="source.name"
-        :label="`${source.author}`"
+        :label="`来源:${source.from}    ${source.author}`"
         is-link
         border
         @click="cellClick(source)"
@@ -48,22 +48,27 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { filter, sortBy } from 'loadsh'
+
 export default {
   name: 'Search',
   props: {},
   data() {
     return {
       bookName: '',
-      list: []
+      list: [],
+      bookFromList: [
+        { name: '275听书', value: 'tingshuwang', show: true },
+        { name: '听书宝', value: 'tingshubao', show: true }
+      ]
     }
   },
-  computed: {
-  },
+  computed: {},
   mounted() {
   },
   methods: {
     cellClick(item) {
-      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl }})
+      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl, from: item.from }})
     },
     searchBook() {
       if (!this.bookName) {
@@ -71,13 +76,23 @@ export default {
       }
       this.$loading.show()
       this.list = []
-      this.$http.get('/tingshu/search', {
-        params: {
-          name: this.bookName
+      this.bookFromList.forEach(item => {
+        if (item.show) {
+          this.$http.get('/tingshu/search', {
+            params: {
+              name: this.bookName,
+              type: item.name
+            }
+          }).then(res => {
+            const arr = res
+            this.list = sortBy(filter([...this.list, ...arr], (item) => {
+              return (item.name.indexOf(this.bookName) !== -1 || item.author.indexOf(this.bookName) !== -1)
+            }), (item) => {
+              return item.name.length
+            })
+            this.$loading.hide()
+          })
         }
-      }).then(res => {
-        this.list = res
-        this.$loading.hide()
       })
     }
   }

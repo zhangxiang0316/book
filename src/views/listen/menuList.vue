@@ -77,6 +77,7 @@ export default {
   activated() {
     if (this.menuUrl !== this.$route.query.menuUrl) {
       this.menuUrl = this.$route.query.menuUrl
+      this.from = this.$route.query.from
       this.title = this.$route.query.name
       this.info = {}
       this.list = []
@@ -100,7 +101,8 @@ export default {
       this.$loading.show()
       this.$http.get('/tingshu/menuList', {
         params: {
-          bookUrl: this.menuUrl
+          bookUrl: this.menuUrl,
+          type: this.from
         }
       }).then(res => {
         this.$loading.hide()
@@ -122,7 +124,8 @@ export default {
           url: item.url,
           menuUrl: this.menuUrl,
           bookName: this.title,
-          imgUrl: this.info.imgUrl
+          imgUrl: this.info.imgUrl,
+          from: item.from
         }
       })
       this.$router.push({ name: 'listenDetail' })

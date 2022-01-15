@@ -54,6 +54,7 @@
                     class="img"
                     :src="item.imgUrl?item.imgUrl:require('@/assets/img/nocover.jpg')"
                   />
+                  <div class="from">{{ item.from }}</div>
                 </div>
                 <div class="cont-dest van-ellipsis">{{ item.bookName }}</div>
               </li>
@@ -184,7 +185,8 @@ export default {
           url: item.url,
           menuUrl: item.menuUrl,
           bookName: item.bookName,
-          imgUrl: item.imgUrl
+          imgUrl: item.imgUrl,
+          from: item.from
         }
       })
       this.$router.push({ name: 'listenDetail' })
@@ -210,7 +212,7 @@ export default {
       })
     },
     loadData() {
-      this.$http.get('/tingshu/home').then(res => {
+      this.$http.get('/tingshubao/home').then(res => {
         this.loading = false
         this.detail = res
         this.refreshing = false
@@ -221,7 +223,7 @@ export default {
       })
     },
     cellClick(item) {
-      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl }})
+      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl, from: item.from }})
     }
   }
 }

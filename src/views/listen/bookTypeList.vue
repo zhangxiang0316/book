@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     cellClick(item) {
-      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl }})
+      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl, from: item.from }})
     },
     nextPage() {
       this.detail.nextPage && this.loadData(this.detail.nextPage)
@@ -93,7 +93,7 @@ export default {
       this.loadData(this.isNew === 0 ? this.detail.new : this.detail.hot, true)
     },
     loadData(url, isRefresh) {
-      this.$http.get('/tingshu/bookTypeList', { params: {
+      this.$http.get('/tingshubao/bookTypeList', { params: {
         url: url
       }}).then(res => {
         this.loading = false

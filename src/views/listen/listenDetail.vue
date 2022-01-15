@@ -88,7 +88,13 @@
       </div>
     </div>
     <select-multiple ref="selectMultiple" @setMultiple="setSpeed" />
-    <left-menu ref="leftMenu" :url="listenDetail.menuUrl" :now-url="listenDetail.url" @loadData="play" />
+    <left-menu
+      ref="leftMenu"
+      :url="listenDetail.menuUrl"
+      :now-url="listenDetail.url"
+      :from="from"
+      @loadData="play"
+    />
     <clocking ref="clocking" />
   </div>
 </template>
@@ -122,6 +128,7 @@ export default {
     return {
       title: '',
       detail: {},
+      from: '',
       audio: null,
       totalTime: 0,
       timeNow: 0,
@@ -140,6 +147,7 @@ export default {
   activated() {
     if (this.$route.params.form !== 'ball') {
       this.play()
+      this.from = this.listenDetail.from
     }
   },
   created() {
@@ -202,7 +210,12 @@ export default {
       this.audio.playbackRate = this.speed
     },
     play() {
-      this.$http.get('/tingshu/detail', { params: { detailUrl: this.listenDetail.url }}).then(res => {
+      this.$http.get('/tingshu/detail', {
+        params: {
+          detailUrl: this.listenDetail.url,
+          type: this.listenDetail.from
+        }
+      }).then(res => {
         this.detail = res
         this.audio.src = res.url
         this.changeSetting({
@@ -229,6 +242,7 @@ export default {
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
+
 .iconfont {
   color: #888;
 }

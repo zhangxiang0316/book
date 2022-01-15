@@ -36,6 +36,10 @@ export default {
     nowUrl: {
       type: String,
       default: ''
+    },
+    from: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -61,7 +65,9 @@ export default {
   mounted() {
   },
   created() {
-    this.loadData()
+    setTimeout(() => {
+      this.loadData()
+    }, 1500)
   },
   methods: {
     ...mapActions([
@@ -76,7 +82,8 @@ export default {
       }
       this.$http.get('/tingshu/menuList', {
         params: {
-          bookUrl: this.url
+          bookUrl: this.url,
+          type: this.from
         }
       }).then(res => {
         this.list = res.list

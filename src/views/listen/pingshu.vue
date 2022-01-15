@@ -57,14 +57,14 @@ export default {
   },
   methods: {
     loadData() {
-      this.$http.get('/tingshu/pingShuList', { params: {
+      this.$http.get('/tingshubao/pingShuList', { params: {
         url: this.listenTypeList[this.active].value
       }}).then(res => {
         this.list = res
       })
     },
     cellClick(item) {
-      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl }})
+      this.$router.push({ name: 'listenMenuList', query: { name: item.name, menuUrl: item.menuUrl, from: item.from }})
     }
   }
 }
