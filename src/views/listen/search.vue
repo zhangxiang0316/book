@@ -61,6 +61,7 @@ export default {
         { name: '275听书', value: 'tingshuwang', show: true },
         { name: '听书宝', value: 'tingshubao', show: true },
         { name: '幻听网', value: 'huanting', show: true }
+
       ]
     }
   },
