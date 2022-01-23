@@ -24,8 +24,8 @@
     />
     <div style="margin-top: 46px;width: 100%">
       <van-cell
-        v-for="source in list"
-        :key="source.menuUrl"
+        v-for="(source,index) in list"
+        :key="source.menuUrl+index"
         :title="source.name"
         :label="`来源:${source.from}    ${source.author}`"
         is-link

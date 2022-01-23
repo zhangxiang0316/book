@@ -31,17 +31,17 @@
       <div style="font-size: 15px;margin-top: 20px">
         {{ detail.title }}
       </div>
-<!--      <svg class="equilizer" width="100%" height="100">-->
-<!--        <g>-->
-<!--          <rect class="bar" transform="translate(0,0)" y="15" x="100" />-->
-<!--          <rect class="bar" transform="translate(25,0)" y="15" x="100" />-->
-<!--          <rect class="bar" transform="translate(50,0)" y="15" x="100" />-->
-<!--          <rect class="bar" transform="translate(75,0)" y="15" x="100" />-->
-<!--          <rect class="bar" transform="translate(100,0)" y="15" x="100" />-->
-<!--          <rect class="bar" transform="translate(125,0)" y="15" x="100" />-->
-<!--          <rect class="bar" transform="translate(150,0)" y="15" x="100" />-->
-<!--        </g>-->
-<!--      </svg>-->
+      <!--      <svg class="equilizer" width="100%" height="100">-->
+      <!--        <g>-->
+      <!--          <rect class="bar" transform="translate(0,0)" y="15" x="100" />-->
+      <!--          <rect class="bar" transform="translate(25,0)" y="15" x="100" />-->
+      <!--          <rect class="bar" transform="translate(50,0)" y="15" x="100" />-->
+      <!--          <rect class="bar" transform="translate(75,0)" y="15" x="100" />-->
+      <!--          <rect class="bar" transform="translate(100,0)" y="15" x="100" />-->
+      <!--          <rect class="bar" transform="translate(125,0)" y="15" x="100" />-->
+      <!--          <rect class="bar" transform="translate(150,0)" y="15" x="100" />-->
+      <!--        </g>-->
+      <!--      </svg>-->
       <div style="width: 100%;position: absolute;bottom:20px">
         <div style="display: flex">
           <div style="margin: 20px;flex: 1" @click="$refs.clocking.show=true">
