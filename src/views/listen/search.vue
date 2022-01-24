@@ -24,8 +24,8 @@
     />
     <div style="margin-top: 46px;width: 100%">
       <van-cell
-        v-for="source in list"
-        :key="source.menuUrl"
+        v-for="(source,index) in list"
+        :key="source.menuUrl+index"
         :title="source.name"
         :label="`来源:${source.from}    ${source.author}`"
         is-link
@@ -59,7 +59,10 @@ export default {
       list: [],
       bookFromList: [
         { name: '275听书', value: 'tingshuwang', show: true },
-        { name: '听书宝', value: 'tingshubao', show: true }
+        { name: '听书宝', value: 'tingshubao', show: true },
+        { name: '幻听网', value: 'huanting', show: true },
+        { name: '乐听吧', value: 'leting', show: true },
+        { name: '听中国', value: 'tingzhongguo', show: true }
       ]
     }
   },
