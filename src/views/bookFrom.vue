@@ -6,12 +6,12 @@
 <template>
   <div class="bookFrom">
     <van-nav-bar
-      :fixed="true"
-      left-arrow
-      :safe-area-inset-top="true"
-      :placeholder="true"
-      title="书源设置"
-      @click-left="$router.back()"
+        :fixed="true"
+        left-arrow
+        :safe-area-inset-top="true"
+        :placeholder="true"
+        title="书源设置"
+        @click-left="$router.back()"
     />
     <van-cell v-for="(item,index) in bookFromList" :key="item.value" :title="item.name" @click="cellClick(item,index)">
       <template #right-icon>
