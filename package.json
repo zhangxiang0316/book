@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "concurrently 'vue-cli-service serve'  'nodemon server/bin/www'",
+    "serve": "concurrently \"vue-cli-service serve\"  \"nodemon ./server/bin/www\"",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
