@@ -10,7 +10,7 @@ const cookie = parseInt(Math.random() * 1000000)
 
 const Http = axios.create({
   // https://www.soxs.cc
-  baseURL: 'https://www.soxscc.cc',
+  baseURL: 'https://www.soxscc.org',
   timeout: 60 * 1000,
   withCredentials: true
 })
