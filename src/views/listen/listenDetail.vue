@@ -31,18 +31,19 @@
       <div style="font-size: 15px;margin-top: 20px">
         {{ detail.title }}
       </div>
-      <!--      <svg class="equilizer" width="100%" height="100">-->
-      <!--        <g>-->
-      <!--          <rect class="bar" transform="translate(0,0)" y="15" x="100" />-->
-      <!--          <rect class="bar" transform="translate(25,0)" y="15" x="100" />-->
-      <!--          <rect class="bar" transform="translate(50,0)" y="15" x="100" />-->
-      <!--          <rect class="bar" transform="translate(75,0)" y="15" x="100" />-->
-      <!--          <rect class="bar" transform="translate(100,0)" y="15" x="100" />-->
-      <!--          <rect class="bar" transform="translate(125,0)" y="15" x="100" />-->
-      <!--          <rect class="bar" transform="translate(150,0)" y="15" x="100" />-->
-      <!--        </g>-->
-      <!--      </svg>-->
       <div style="width: 100%;position: absolute;bottom:20px">
+        <div v-if="listenNow.isPlay" style="margin: 20px 40px 0 40px">
+          <bars
+            :data="barData"
+            :max="10"
+            :padding="8"
+            :min="1"
+            :grow-duration="0.1"
+            :gradient="['#35a7ff', '#ff93df']"
+            :bar-width="6"
+            :rounding="2"
+          />
+        </div>
         <div style="display: flex">
           <div style="margin: 20px;flex: 1" @click="$refs.clocking.show=true">
             <div><i class="iconfont icon-kuaijinmiao-" style="font-size: 30px;color: #888" /></div>
@@ -114,13 +115,15 @@ import { mapActions, mapGetters } from 'vuex'
 import selectMultiple from './components/selectMultiple'
 import leftMenu from './components/leftMenu'
 import clocking from './components/clocking'
+import Bars from 'vuebars'
 
 export default {
   name: 'ListenDetail',
   components: {
     leftMenu,
     selectMultiple,
-    clocking
+    clocking,
+    Bars
   },
   filters: {
     formTime(val) {
@@ -144,7 +147,8 @@ export default {
       totalTime: 0,
       timeNow: 0,
       isPaused: false,
-      imgWidth: 0
+      imgWidth: 0,
+      barData: []
     }
   },
   computed: {
@@ -156,6 +160,7 @@ export default {
     ])
   },
   activated() {
+    this.barData = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
     if (this.$route.params.form !== 'ball') {
       this.play()
       this.from = this.listenDetail.from
@@ -177,10 +182,17 @@ export default {
         this.audio.addEventListener('timeupdate', () => {
           this.totalTime = this.audio.duration
           this.timeNow = this.audio.currentTime
+          this.getBarData()
           if (this.audio.ended) {
             this.next()
           }
         })
+      }
+    },
+    getBarData() {
+      this.barData = []
+      for (let i = 0; i < 20; i++) {
+        this.barData[i] = parseInt(Math.random() * 10 + 1)
       }
     },
     toPlay() {
