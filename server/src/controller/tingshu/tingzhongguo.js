@@ -68,7 +68,9 @@ const getBookDetail = async(detailUrl) => {
   detail.previewUrl = $('#preinfo').attr('href')
   detail.nextUrl = $('#nexturl').attr('href')
   const url = $('#playurl').attr('value')
+  console.log(url)
   res = await Http.get(url)
+  console.log(res)
   detail.url = 'h' + FonHen_JieMa(res.src)
   return detail
 }

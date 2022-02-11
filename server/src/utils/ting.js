@@ -15,6 +15,7 @@ const getAspParas = (suffix, cur_url, urlParas) => {
 }
 
 const FonHen_JieMa = (u) => {
+  console.log(u)
   const tArr = u.split('*')
   let str = ''
   for (let i = 1, n = tArr.length; i < n; i++) {
