@@ -14,6 +14,7 @@ const tingshubao = require('../controller/tingshubao')
 const liuyue = require('../controller/tingshu/liuyue')
 const tingshudao = require('../controller/tingshu/tingshudao')
 const tiantianpingshu = require('../controller/tingshu/tiantianpingshu')
+const yiyeting = require('../controller/tingshu/yiyeting')
 
 router.prefix('/tingshu')
 
@@ -25,7 +26,8 @@ const bookArr = {
   '听中国': tingzhongguo,
   '天天评书': tiantianpingshu,
   '六月听书': liuyue,
-  '听书岛': tingshudao
+  '听书岛': tingshudao,
+  '听书网': yiyeting
 }
 
 /**

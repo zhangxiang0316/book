@@ -33,6 +33,17 @@
       icon="jiachang_shujia"
       @click="$router.push({name:'history'})"
     />
+    <van-cell
+      title="下载地址"
+      is-link
+      icon-prefix="iconfont"
+      icon="jiachang_shujia"
+      @click="show=true"
+    />
+
+    <van-dialog v-model="show" title="地址" show-cancel-button style="text-align: center">
+      <img style="width: 200px;height: 250px" src="@/assets/img/download.png">
+    </van-dialog>
   </div>
 </template>
 
@@ -42,7 +53,9 @@ export default {
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      show: false
+    }
   },
   computed: {},
   activated() {
