@@ -4,7 +4,7 @@
 * 备注：
 */
 <template>
-  <van-popup v-model="show" position="bottom" :style="{ height: '50px' }">
+  <van-popup v-model="show" position="bottom" round :lock-scroll="false" :overlay="false" :style="{ height: '50px' }">
     <van-tabbar v-model="active" @change="change">
       <van-tabbar-item>
         <span>目录</span>

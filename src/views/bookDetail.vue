@@ -22,7 +22,7 @@
       v-show="bookDetail.detail"
       style="font-size: 14px;line-height: 25px;padding:  10px"
       :style="{'background-color':backgroundColor,color:color,'font-size':fontSize+'px','line-height':lineHeight+'px'}"
-      @click="$refs.bottomMenu.show = true"
+      @click="$refs.bottomMenu.show = !$refs.bottomMenu.show"
     >
       <van-pull-refresh v-if="bookDetail.detail" v-model="refreshing" @refresh="onRefresh">
         <van-list
@@ -160,7 +160,7 @@ export default {
         if (isRefresh) {
           this.detailList = this.bookDetail.detail
           this.detailList.unshift({ type: 'title', value: this.title })
-          // window.scrollTo(0, 0)
+          window.scrollTo(0, 0)
         } else {
           this.detailList.push({ type: 'title', value: this.title })
           this.detailList.push(...this.bookDetail.detail)
@@ -200,9 +200,5 @@ export default {
 
 .van-tabbar-item--active {
   color: #646566;
-}
-
-/deep/ .van-overlay {
-  background-color: transparent;
 }
 </style>

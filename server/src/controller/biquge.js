@@ -80,17 +80,8 @@ const getBookDetail = async(detailUrl) => {
   detail.title = $('.title', '.header_wap').text()
   detail.form = '笔趣阁'
   detail.detail = arr
-  $('script').map(function(i, el) {
-    if (i === 3) {
-      const text = $(this)[0].children[0].data
-      const matchNext = text.match(/var next_page = (.*);/)
-      const nextPage = matchNext[1].replace('"', '').replace('"', '')
-      const matchPreview = text.match(/var preview_page = (.*);/)
-      const previewPage = matchPreview[1].replace('"', '').replace('"', '')
-      detail.nextUrl = nextPage.indexOf('.html') === -1 ? '' : nextPage
-      detail.previewUrl = previewPage.indexOf('.html') === -1 ? '' : previewPage
-    }
-  })
+  detail.nextUrl = $('.pagedown #pb_next').attr('href').indexOf('.html') !== -1 ? $('.pagedown #pb_next').attr('href') : ''
+  detail.previewUrl = $('.pagedown #pb_prev').attr('href').indexOf('.html') !== -1 ? $('.pagedown #pb_prev').attr('href') : ''
   return detail
 }
 

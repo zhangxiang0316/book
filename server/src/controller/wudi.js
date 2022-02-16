@@ -33,10 +33,14 @@ const getMenuList = async(menuUrl) => {
   info.name = $('.other .titleOrOther h1').text()
   info.author = $('.other .titleOrOther .s2').text()
   $('.brief').each(function(i, el) {
-    if (i == 0) { info.disc = $(el).text().replace(/\n/g, '').replace(/\t/g, '').replace(/&nbsp;/g, '') }
+    if (i == 0) {
+      info.disc = $(el).text().replace(/\n/g, '').replace(/\t/g, '').replace(/&nbsp;/g, '')
+    }
   })
   $('.other .tips a').each(function(i, el) {
-    if (i === 1) { info.status = $(el).text() }
+    if (i === 1) {
+      info.status = $(el).text()
+    }
   })
   info.last = {
     url: $('.other .news a').attr('href'),
@@ -45,7 +49,9 @@ const getMenuList = async(menuUrl) => {
   }
 
   $('.other .button a').each(function(i, el) {
-    if (i === 0) { menuUrl = $(el).attr('href') }
+    if (i === 0) {
+      menuUrl = $(el).attr('href')
+    }
   })
   data = await Http.get(menuUrl)
   $ = cheerio.load(data.toString())
@@ -60,7 +66,7 @@ const getMenuList = async(menuUrl) => {
       obj.name = $(ele).find('a').text()
       obj.url = menuUrl + $(ele).find('a').attr('href')
       obj.from = '无敌小说网'
-      list.arr.push(obj)
+      obj.name && list.arr.push(obj)
     })
     arr.push(list)
   })
