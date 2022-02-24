@@ -27,6 +27,7 @@ const heiyan = require('../controller/heiyan')
 const yanqing = require('../controller/yanqing')
 const lewen = require('../controller/lewen')
 const siluke = require('../controller/siluke')
+const shubenwang = require('../controller/shubenwang')
 
 const bookArr = {
   '笔趣阁': biquge,
@@ -55,7 +56,8 @@ const bookArr = {
   '黑岩小说': heiyan,
   '乐文小说': lewen,
   '言情中文': yanqing,
-  '思路客': siluke
+  '思路客': siluke,
+  '书本网': shubenwang
 }
 
 /**

@@ -25,7 +25,8 @@ export const fromList = [
   { name: '黑岩小说', value: 'heiyan', show: true },
   { name: '言情中文', value: 'yanqing', show: true },
   { name: '乐文小说', value: 'lewen', show: true },
-  { name: '思路客', value: 'siluke', show: true }
+  { name: '思路客', value: 'siluke', show: true },
+  { name: '书本网', value: 'shubenwang', show: true }
 ]
 
 export const typeList = [
