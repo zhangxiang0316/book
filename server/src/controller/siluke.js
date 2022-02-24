@@ -1,0 +1,99 @@
+/**
+ * create by zhangxiang on 2021-12-08 20:06
+ * 类注释：思路客
+ * 备注：
+ */
+const Http = require('../http/siluke')
+const cheerio = require('cheerio')
+
+const search = async(name) => {
+  const res = await Http.get('/search.php', { params: { q: name }})
+  const $ = cheerio.load(res.toString())
+  const bookArr = []
+  $('.result-list .result-item').each(function(i, el) {
+    const obj = {}
+    obj.menuUrl = $(el).find('.result-game-item-pic a').attr('href')
+    obj.name = $(el).find('.result-game-item-detail .result-item-title a span').text()
+    obj.author = $(el).find('.result-game-item-info .result-game-item-info-tag').first().text()
+    obj.from = '思路客'
+    obj.imgUrl = $(el).find('.result-game-item-pic a img').attr('src')
+    bookArr.push(obj)
+  })
+  return bookArr
+}
+
+/**
+ * 获取章节列表
+ * @param menuUrl
+ * @returns {Promise<{}>}
+ */
+const getMenuList = async(menuUrl) => {
+  const data = await Http.get(menuUrl)
+  const $ = cheerio.load(data.toString())
+  const bookDetail = {}
+  const info = {}
+  const arr = []
+  info.imgUrl = $('#sidebar #fmimg img').attr('src')
+  info.name = $('#maininfo #info h1').text()
+  info.status = '暂无'
+  info.disc = $('#intro').text()
+  $('#maininfo #info p').each(function(i, el) {
+    if (i === 0) {
+      info.author = $(el).text().replace(/&nbsp;/g, '').trim()
+    }
+    if (i === 2) {
+      info.updataTime = $(el).text()
+    }
+    if (i === 3) {
+      info.last = {
+        url: $(el).find('a').attr('href'),
+        from: '思路客',
+        name: $(el).find('a').text()
+      }
+    }
+  })
+  $('.box_con  #list dl dd').each(function(i, el) {
+    const obj = {}
+    obj.url = $(el).find('a').attr('href')
+    obj.name = $(el).find('a').text()
+    obj.from = '思路客'
+    arr.push(obj)
+  })
+  bookDetail.info = info
+  bookDetail.list = arr
+  return bookDetail
+}
+
+/**
+ * 获取章节详情
+ * @param detailUrl
+ * @returns {Promise<{}>}
+ */
+const getBookDetail = async(detailUrl) => {
+  const res = await Http.get(detailUrl)
+  const $ = cheerio.load(res.toString())
+  const detail = {}
+  const arr = []
+  $('#content').html().split('<br><br>').forEach(item => {
+    arr.push(item.replace(/&nbsp;/g, ''))
+  })
+
+  detail.title = $('.bookname h1').text()
+  detail.form = '思路客'
+  detail.detail = arr
+  $('.bottem2 a').each(function(i, el) {
+    if (i === 0) {
+      detail.previewUrl = $(el).attr('href').indexOf('.html') != -1 ? $(el).attr('href') : ''
+    }
+    if (i === 2) {
+      detail.nextUrl = $(el).attr('href').indexOf('.html') != -1 ? $(el).attr('href') : ''
+    }
+  })
+  return detail
+}
+
+module.exports = {
+  search,
+  getMenuList,
+  getBookDetail
+}

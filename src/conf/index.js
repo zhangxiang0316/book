@@ -8,7 +8,7 @@ export const fromList = [
   { name: '新笔趣阁', value: 'xbiquge', show: true },
   { name: '笔趣泡', value: 'xbiqupao', show: true },
   { name: '西红柿', value: 'xihongshi', show: true },
-  { name: '永生文学', value: 'yongsheng', show: true },
+  // { name: '永生文学', value: 'yongsheng', show: true },
   { name: '3z小说', value: 'sanz', show: true },
   { name: '墨缘文学', value: 'moyuan', show: true },
   { name: '笔趣网', value: 'biquwang', show: true },
@@ -24,7 +24,8 @@ export const fromList = [
   { name: '九桃小说', value: 'jiutao', show: true },
   { name: '黑岩小说', value: 'heiyan', show: true },
   { name: '言情中文', value: 'yanqing', show: true },
-  { name: '乐文小说', value: 'lewen', show: true }
+  { name: '乐文小说', value: 'lewen', show: true },
+  { name: '思路客', value: 'siluke', show: true }
 ]
 
 export const typeList = [
