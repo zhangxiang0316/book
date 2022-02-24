@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间计算</title>
+
+    <!-- 引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!-- 引入组件库 -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <script src="//unpkg.com/element-plus"></script>
+    <script src="//unpkg.com/element-plus/dist/locale/zh-cn"></script>
+
+</head>
+<body>
+<div id="app">
+    <el-form ref="form" :model="formData" label-width="80px">
+        <el-form-item label="开始时间">
+            <el-date-picker
+                    v-model="formData.startTime"
+                    type="date"
+                    value-format="x"
+                    placeholder="开始时间">
+            </el-date-picker>
+        </el-form-item>
+        <el-form-item label="结束时间">
+            <el-date-picker
+                    v-model="formData.endTime"
+                    type="date"
+                    value-format="x"
+                    placeholder="结束时间">
+            </el-date-picker>
+        </el-form-item>
+        <el-button @click="calc">计算</el-button>
+        {{ timeLong }}
+    </el-form>
+</div>
+</body>
+<!--<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>-->
+
+<script>
+    const App = {
+        data() {
+            return {
+                formData: {},
+                timeLong: ""
+            };
+        },
+        methods: {
+            calc() {
+                debugger
+                if (this.formData.startTime && this.formData.endTime) {
+                    this.timeLong = (this.formData.endTime - this.formData.startTime) / 1000 / 60 / 60 / 24 + '天'
+                } else {
+                    this.$message.error('选择时间')
+                }
+            }
+        }
+    };
+    const app = Vue.createApp(App);
+    app.use(ElementPlus, {
+        locale: ElementPlusLocaleZhCn,
+    });
+    app.mount("#app");
+</script>
+</html>
