@@ -11,7 +11,7 @@
       :placeholder="true"
       :title="title"
       left-arrow
-      @click-right="$refs.bottomMenu.show = true"
+      @click-right="readNext"
       @click-left="$router.back()"
     >
       <template #right>
@@ -20,6 +20,7 @@
     </van-nav-bar>
     <div
       v-show="bookDetail.detail"
+      ref="detail"
       style="font-size: 14px;line-height: 25px;padding:  10px"
       :style="{'background-color':backgroundColor,color:color,'font-size':fontSize+'px','line-height':lineHeight+'px'}"
       @click="$refs.bottomMenu.show = !$refs.bottomMenu.show"
@@ -27,7 +28,7 @@
       <van-pull-refresh v-if="bookDetail.detail" v-model="refreshing" @refresh="onRefresh">
         <van-list
           v-model="loading"
-          :offset="10"
+          :offset="50"
           :finished="finished"
           finished-text="没有更多了"
           @load="nextPage"
@@ -109,6 +110,9 @@ export default {
     this.title = this.bookName
     this.loadData(true, true)
   },
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
   methods: {
     ...mapActions([
       'changeSetting'
@@ -143,6 +147,17 @@ export default {
       }
       this.detailUrl = this.bookDetail.nextUrl
       this.loadData(false, false)
+    },
+    readNext() {
+      debugger
+      let next = this.$refs.detail.scrollHeight
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+      this.interval = setInterval(() => {
+        next += 0.4
+        window.scrollTo(0, next)
+      }, 10)
     },
     loadData(flag, isRefresh) {
       flag && this.$loading.show()

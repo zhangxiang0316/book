@@ -27,7 +27,7 @@ const bookArr = {
   '天天评书': tiantianpingshu,
   '六月听书': liuyue,
   '听书岛': tingshudao,
-  '听书网': yiyeting
+  '一夜听书': yiyeting
 }
 
 /**
