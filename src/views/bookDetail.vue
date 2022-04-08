@@ -11,7 +11,7 @@
       :placeholder="true"
       :title="title"
       left-arrow
-      @click-right="readNext"
+      @click-right="$refs.bottomMenu.show=true"
       @click-left="$router.back()"
     >
       <template #right>
@@ -20,35 +20,40 @@
     </van-nav-bar>
     <div
       v-show="bookDetail.detail"
-      ref="detail"
-      style="font-size: 14px;line-height: 25px;padding:  10px"
+      style="font-size: 14px;line-height: 25px;padding:  10px;position: relative;"
       :style="{'background-color':backgroundColor,color:color,'font-size':fontSize+'px','line-height':lineHeight+'px'}"
-      @click="$refs.bottomMenu.show = !$refs.bottomMenu.show"
+      @click="showBottomMenu"
     >
       <van-pull-refresh v-if="bookDetail.detail" v-model="refreshing" @refresh="onRefresh">
         <van-list
           v-model="loading"
-          :offset="50"
+          :offset="20"
+          ref="detail"
           :finished="finished"
           finished-text="没有更多了"
           @load="nextPage"
         >
           <div style="height: 20px" />
-          <div />
-          <div
-            v-for="(item,index) in detailList"
-            :key="index"
-          >
-            <div v-if="item.type==='title'" style="color: #9a6e3a">{{ item.value }}</div>
-            <div v-else style="text-indent:30px">{{ item }}</div>
-            <div style="height: 20px" />
+          <div>
+            <div
+              v-for="(item,index) in detailList"
+              :key="index"
+            >
+              <div v-if="item.type==='title'" style="color: #9a6e3a">{{ item.value }}</div>
+              <div v-else style="text-indent:30px">{{ item }}</div>
+              <div style="height: 20px" />
+            </div>
           </div>
         </van-list>
       </van-pull-refresh>
+      <div v-show="showAutoReading" class="autoReading">
+        <div class="reading" @click="stopRead">关闭自动阅读</div>
+      </div>
     </div>
     <bottom-menu ref="bottomMenu" @change="change" />
+
     <left-menu ref="leftMenu" :url="menuUrl" :now-url="detailUrl" :from="from" @loadData="load" />
-    <detail-setting ref="detailSetting" />
+    <detail-setting ref="detailSetting" @autoRead="autoRead" />
   </div>
 </template>
 
@@ -81,7 +86,8 @@ export default {
       loading: false,
       finished: false,
       refreshing: false,
-      height: 0
+      height: 0,
+      showAutoReading: false
     }
   },
   computed: {
@@ -117,6 +123,15 @@ export default {
     ...mapActions([
       'changeSetting'
     ]),
+    showBottomMenu() {
+      this.$refs.bottomMenu.show = !this.$refs.bottomMenu.show
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+      if (!this.$refs.bottomMenu.show) {
+        this.autoRead()
+      }
+    },
     onRefresh() {
       if (!this.bookDetail.previewUrl) {
         this.$toast('已经是第一章了')
@@ -126,6 +141,7 @@ export default {
       this.detailUrl = this.bookDetail.previewUrl
       this.loadData(false, true)
     },
+
     load(url) {
       this.detailUrl = url
       this.loadData(true, true)
@@ -148,16 +164,25 @@ export default {
       this.detailUrl = this.bookDetail.nextUrl
       this.loadData(false, false)
     },
-    readNext() {
-      debugger
-      let next = this.$refs.detail.scrollHeight
+    stopRead() {
+      this.showAutoReading = false
       if (this.interval) {
         clearInterval(this.interval)
       }
-      this.interval = setInterval(() => {
-        next += 0.4
-        window.scrollTo(0, next)
-      }, 10)
+    },
+    autoRead() {
+      this.$nextTick(() => {
+        this.showAutoReading = true
+        let next = this.$refs.detail.scrollHeight
+        console.log(next)
+        if (this.interval) {
+          clearInterval(this.interval)
+        }
+        this.interval = setInterval(() => {
+          next += 0.3
+          window.scrollTo(0, next)
+        }, 16)
+      })
     },
     loadData(flag, isRefresh) {
       flag && this.$loading.show()
@@ -216,4 +241,27 @@ export default {
 .van-tabbar-item--active {
   color: #646566;
 }
+
+.bookDetail {
+  position: relative;
+
+  .autoReading {
+    position: fixed;
+    bottom: 80px;
+    z-index: 100;
+    left:0;
+    right:0;
+    width: 60%;
+    margin:0 auto;
+    border-radius: 30px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, .8);
+
+    .reading {
+      color: white;
+      text-align: center;
+    }
+  }
+}
+
 </style>

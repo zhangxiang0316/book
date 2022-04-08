@@ -56,7 +56,7 @@ app.use(index.routes(), index.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.log('错误信息：', err)
+  // console.log('错误信息：', err)
 })
 
 module.exports = app

@@ -30,6 +30,8 @@
         </template>
       </van-field>
     </van-form>
+<!--    <van-button size="large" @click="autoRead">开启自动阅读</van-button>-->
+
   </van-popup>
 </template>
 
@@ -72,6 +74,10 @@ export default {
       this.changeSetting({ key: 'backgroundColor', value: color })
       this.changeSetting({ key: 'color', value: '#333' })
       this.changeSetting({ key: 'isNight', value: false })
+    },
+    autoRead() {
+      this.show = false
+      this.$emit('autoRead')
     }
   }
 }
