@@ -30,7 +30,7 @@
         </template>
       </van-field>
     </van-form>
-<!--    <van-button size="large" @click="autoRead">开启自动阅读</van-button>-->
+    <!--    <van-button size="large" @click="autoRead">开启自动阅读</van-button>-->
 
   </van-popup>
 </template>

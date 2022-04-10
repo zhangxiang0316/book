@@ -26,9 +26,9 @@
     >
       <van-pull-refresh v-if="bookDetail.detail" v-model="refreshing" @refresh="onRefresh">
         <van-list
+          ref="detail"
           v-model="loading"
           :offset="20"
-          ref="detail"
           :finished="finished"
           finished-text="没有更多了"
           @load="nextPage"

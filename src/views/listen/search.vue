@@ -63,7 +63,8 @@ export default {
         { name: '幻听网', value: 'huanting', show: true },
         { name: '乐听吧', value: 'leting', show: true },
         { name: '听中国', value: 'tingzhongguo', show: true },
-        { name: '听书岛', value: 'tingshudao', show: true }
+        { name: '听书岛', value: 'tingshudao', show: true },
+        { name: '六六听网', value: 'liuting', show: true }
       ]
     }
   },

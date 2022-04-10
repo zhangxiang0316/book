@@ -15,6 +15,7 @@ const liuyue = require('../controller/tingshu/liuyue')
 const tingshudao = require('../controller/tingshu/tingshudao')
 const tiantianpingshu = require('../controller/tingshu/tiantianpingshu')
 const yiyeting = require('../controller/tingshu/yiyeting')
+const liuting = require('../controller/tingshu/liuting')
 
 router.prefix('/tingshu')
 
@@ -27,13 +28,15 @@ const bookArr = {
   '天天评书': tiantianpingshu,
   '六月听书': liuyue,
   '听书岛': tingshudao,
-  '一夜听书': yiyeting
+  '一夜听书': yiyeting,
+  '六六听网': liuting
 }
 
 /**
  * 查找
  */
 router.get('/search', async(ctx, next) => {
+  console.log(ctx)
   const { name, type } = ctx.query
   let bookList = []
   if (!name) {
