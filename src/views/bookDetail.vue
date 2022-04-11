@@ -125,12 +125,12 @@ export default {
     ]),
     showBottomMenu() {
       this.$refs.bottomMenu.show = !this.$refs.bottomMenu.show
-      if (this.interval) {
-        clearInterval(this.interval)
-      }
-      if (!this.$refs.bottomMenu.show) {
-        this.autoRead()
-      }
+      // if (this.interval) {
+      //   clearInterval(this.interval)
+      // }
+      // if (!this.$refs.bottomMenu.show) {
+      //   this.autoRead()
+      // }
     },
     onRefresh() {
       if (!this.bookDetail.previewUrl) {
