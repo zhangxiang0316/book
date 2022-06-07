@@ -15,9 +15,7 @@
 
 <script type="text/ecmascript-6">
 import vueWaterfallEasy from 'vue-waterfall-easy'
-// import allList from '../../../static/movie.json'
-
-const allList = []
+import axios from 'axios'
 export default {
   name: 'Index',
   components: {
@@ -41,14 +39,26 @@ export default {
   methods: {
     getData() {
       this.page++
-      this.list.push(...allList.slice(this.page * 10, (this.page + 1) * 10).map(item => {
-        return {
-          src: item.mv_img_url,
-          href: 'https://www.baidu.com',
-          info: item.mv_play_url,
-          title: item.mv_title
+      axios.get('http://127.0.0.1:9999/movie/movieList', {
+        params: {
+          page: this.page,
+          pageSize: 15,
+          keyWord: ''
+        },
+        headers: {
+          movie: true
         }
-      }))
+      }).then(res => {
+        const list = res.data.data.list.map(item => {
+          return {
+            src: item.mv_img_url,
+            href: 'https://www.baidu.com',
+            info: item.mv_play_url,
+            title: item.mv_title
+          }
+        })
+        this.list.push(...list)
+      })
       // for (let i = 0; i < 20; i++) {
       //   this.list.push({
       //     src: `https://picsum.photos/${Math.round(Math.random() * 100 + 100)}/${Math.round(Math.random() * 300 + 50)}?random=${Math.random() * 10000000}`,

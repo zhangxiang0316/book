@@ -75,6 +75,10 @@ export default {
       if (!this.bookName) {
         return
       }
+      if (this.bookName === '我要看视频') {
+        this.$router.push('/movieList')
+        return
+      }
       this.$loading.show()
       this.list = []
       this.bookFromList.forEach(item => {
