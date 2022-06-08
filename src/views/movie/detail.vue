@@ -5,6 +5,14 @@
 */
 <template>
   <div class="detail">
+    <van-nav-bar
+      :fixed="true"
+      :safe-area-inset-top="true"
+      :placeholder="true"
+      title="视频详情"
+      left-arrow
+      @click-left="$router.back()"
+    />
     <video-player
       ref="videoPlayer"
       class="video-player vjs-custom-skin"
@@ -75,15 +83,11 @@ export default {
     }
   },
   activated() {
-  },
-  mounted() {
     const url = this.$route.query.movieUrl
     this.playerOptions.poster = this.$route.query.img
-    this.playerOptions.sources.push(
-      {
-        type: 'video/mp4',
-        src: url
-      })
+    this.playerOptions.sources.push({ type: 'video/mp4', src: url })
+  },
+  mounted() {
   },
   created() {
   },

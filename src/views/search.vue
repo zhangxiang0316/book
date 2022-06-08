@@ -76,7 +76,7 @@ export default {
         return
       }
       if (this.bookName === '我要看视频') {
-        this.$router.push('/movieList')
+        this.$router.push({ name: 'movieList' })
         return
       }
       this.$loading.show()
