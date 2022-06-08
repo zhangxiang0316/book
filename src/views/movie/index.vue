@@ -54,6 +54,7 @@ export default {
   mounted() {
   },
   created() {
+    console.log('created')
     this.getData()
   },
   methods: {

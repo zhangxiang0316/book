@@ -41,7 +41,7 @@ import 'vue-video-player/src/custom-theme.css'
 import { videoPlayer } from 'vue-video-player'
 
 export default {
-  name: 'MoveDetail',
+  name: 'MovieDetail',
   components: {
     videoPlayer
   },
@@ -83,13 +83,15 @@ export default {
     }
   },
   activated() {
-    const url = this.$route.query.movieUrl
-    this.playerOptions.poster = this.$route.query.img
-    this.playerOptions.sources.push({ type: 'video/mp4', src: url })
+
   },
   mounted() {
   },
   created() {
+    this.playerOptions.sources = []
+    const url = this.$route.query.movieUrl
+    this.playerOptions.poster = this.$route.query.img
+    this.playerOptions.sources.push({ type: 'video/mp4', src: url })
   },
   methods: {
     // listen event

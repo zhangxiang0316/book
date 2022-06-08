@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive :exclude="['BookDetail']">
+      <keep-alive :exclude="['BookDetail','MovieDetail']">
         <router-view />
       </keep-alive>
     </transition>
