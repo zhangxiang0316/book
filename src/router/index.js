@@ -126,13 +126,15 @@ const routers = [
     component: resolve => require(['@/views/listen/search.vue'], resolve),
     meta: { index: 2 }
   },
-  { name: 'movieDetail',
+  {
+    name: 'movieDetail',
     path: '/movieDetail',
     component: resolve => require(['@/views/movie/detail.vue'], resolve),
     meta: { index: 4 }
   },
-  { name: 'movieList',
-    path: '/movieList',
+  {
+    name: 'movieList',
+    path: '/abccbaabc',
     component: resolve => require(['@/views/movie/index.vue'], resolve),
     meta: { index: 4 }
   },

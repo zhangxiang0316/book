@@ -92,6 +92,10 @@ export default {
     const url = this.$route.query.movieUrl
     this.playerOptions.poster = this.$route.query.img
     this.playerOptions.sources.push({ type: 'video/mp4', src: url })
+    // this.playerOptions.sources.push({
+    //   type: 'application/x-mpegURL', // 这里的种类支持很多种：基本视频格式、直播、流媒体等，具体可以参看git网址项目
+    //   src: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' // url地址，从别的博主那看来的地址，亲测可用
+    // })
   },
   methods: {
     // listen event

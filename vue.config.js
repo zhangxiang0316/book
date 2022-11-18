@@ -21,6 +21,14 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      '/serverApi': {
+        target: 'https://yazhouse8.com/',
+        pathRewrite: {
+          '^/serverApi': ''
+        }
+      }
     }
   },
   configureWebpack: {

@@ -1,4 +1,5 @@
 export const fromList = [
+  { name: '御书网', value: 'yushuwang', show: true },
   { name: '八一小说', value: 'bayi', show: true },
   { name: '笔趣阁', value: 'biquge', show: true },
   { name: '笔趣趣', value: 'biququ', show: true },

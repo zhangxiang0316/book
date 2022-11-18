@@ -15,6 +15,7 @@
     "loadsh": "^0.0.4",
     "vant": "^2.12.35",
     "vconsole": "^3.9.5",
+    "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.6.11",
     "vue-router": "^3.5.3",
     "vue-video-player": "^5.0.2",

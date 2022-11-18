@@ -29,6 +29,7 @@ const lewen = require('../controller/lewen')
 const siluke = require('../controller/siluke')
 const shubenwang = require('../controller/shubenwang')
 const bixi = require('../controller/bixia')
+const yushuwang = require('../controller/yushuwang')
 
 const bookArr = {
   '笔趣阁': biquge,
@@ -59,7 +60,8 @@ const bookArr = {
   '言情中文': yanqing,
   '思路客': siluke,
   '书本网': shubenwang,
-  '笔下文学': bixi
+  '笔下文学': bixi,
+  '御书网': yushuwang
 }
 
 /**

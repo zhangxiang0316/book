@@ -9,104 +9,102 @@
       :fixed="true"
       :safe-area-inset-top="true"
       :placeholder="true"
-      title="视频"
+      title=""
       left-arrow
       @click-left="$router.back()"
     />
-    <vue-waterfall-easy :imgs-arr="list" @scrollReachBottom="getData" @click="clickItem" style="margin-top: 60px">
-      <div slot="waterfall-head">
-        <van-search
-          v-model="movieName"
-          autofocus
-          style="position: fixed;top:45px;width: 100%;z-index: 10"
-          clearable
-          shape="round"
-          placeholder="请输入"
-          @search="loadData"
-        />
-      </div>
-      <div slot-scope="props" class="img-info">
-        <p class="some-info" style="line-height: 30px">{{ props.value.title }}</p>
-      </div>
-    </vue-waterfall-easy>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="loadData"
+    >
+      <video-player
+        v-for="item in list"
+        ref="videoPlayer"
+        class="video-player vjs-custom-skin"
+        :options="item.playerOptions"
+        :playsinline="true"
+        custom-event-name="customstatechangedeventname"
+      />
+      <div>{{ item.title }}</div>
+    </van-list>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import vueWaterfallEasy from 'vue-waterfall-easy'
 import axios from 'axios'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+import { videoPlayer } from 'vue-video-player'
 export default {
   name: 'Index',
   components: {
-    vueWaterfallEasy
+    videoPlayer
   },
   props: {},
   data() {
     return {
+      finished: false,
+      loading: false,
       list: [],
-      page: 0,
-      movieName: ''
+      page: 1,
+      movieName: '',
+      playerOptions: {
+        live: true,
+        playbackRates: [0.5, 1.0, 1.5, 2.0], // 播放速度
+        autoplay: false, // 如果true,浏览器准备好时开始回放。
+        controls: true, // 控制条
+        preload: 'auto', // 视频预加载
+        muted: false, // 默认情况下将会消除任何音频。
+        loop: false, // 导致视频一结束就重新开始。
+        language: 'zh-CN',
+        bigPlayButton: true,
+        width: document.documentElement.clientWidth,
+        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+        sources: [],
+        controlBar: {
+          timeDivider: true,
+          durationDisplay: true,
+          remainingTimeDisplay: true,
+          currentTimeDisplay: true, // 当前时间
+          volumeControl: false, // 声音控制键
+          playToggle: true, // 暂停和播放键
+          progressControl: true, // 进度条
+          fullscreenToggle: true // 全屏按钮
+        },
+        poster: '', // 你的封面地址
+        notSupportedMessage: '此视频暂无法播放，请稍后再试' // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
+      }
     }
   },
   computed: {},
-  activated() {
-  },
   mounted() {
   },
   created() {
-    console.log('created')
-    this.getData()
+    this.loadData()
   },
   methods: {
     loadData() {
-      this.page = 0
-      this.getData()
-    },
-    getData() {
-      if (this.page === 0) {
-        this.list = []
-      }
-      this.page++
-      axios.get('http://127.0.0.1:9999/movie/movieList', {
-        params: {
-          page: this.page,
-          pageSize: 15,
-          keyWord: this.movieName
-        },
+      axios.get(`https://hjce6d.com/api/video/node_list?pageIndex=${this.page}&type=1`, {
         headers: {
-          movie: true
+          'x-user-id': '21585586',
+          'x-user-token': 'a7d10e98ba114b0b9e76a1eca498fb88'
         }
       }).then(res => {
-        const list = res.data.data.list.map(item => {
+        const list = res.data.data.map(item => {
           return {
-            src: item.mv_img_url,
-            href: 'https://www.baidu.com',
-            info: item.mv_play_url,
-            title: item.mv_title
+            title: item.title,
+            url: item.attachment.remoteUrl
           }
         })
-        this.list.push(...list)
-      })
-      // for (let i = 0; i < 20; i++) {
-      //   this.list.push({
-      //     src: `https://picsum.photos/${Math.round(Math.random() * 100 + 100)}/${Math.round(Math.random() * 300 + 50)}?random=${Math.random() * 10000000}`,
-      //     href: 'https://www.baidu.com',
-      //     info: 'https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm',
-      //     title: 'this is a title index: ' + this.group + '-' + i
-      //   })
-      // }
-    },
-    clickItem(event, { index, value }) {
-      // 阻止a标签跳转
-      event.preventDefault()
-      console.log(index, value)
-      this.$router.push({
-        path: '/movieDetail',
-        query: {
-          img: value.src,
-          movieUrl: value.info,
-          title: value.title
+        if (this.page === 1) {
+          this.list = list
+        } else {
+          this.list = [...list, ...this.list]
         }
+        this.page++
       })
     }
   }
@@ -114,5 +112,17 @@ export default {
 </script>
 
 <style scoped>
+video {
+  width: 100% !important;
+  height: 400px !important;
+  object-fit: fill;
+}
 
+@media screen and(min-width: 768px) {
+  video {
+    width: 100% !important;
+    height: 400px !important;
+    object-fit: fill;
+  }
+}
 </style>

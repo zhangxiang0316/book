@@ -1,11 +1,11 @@
+// ÓùÊéÍø
 const axios = require('axios')
 
 const Http = axios.create({
-  baseURL: process.env.VUE_APP_BASE_URL,
-  // baseURL: 'http://zhangmuchen.top:8000/',
-  timeout: 60 * 1000
+  baseURL: 'https://m.yushubo.net/',
+  timeout: 60 * 1000,
+  withCredentials: true
 })
-
 Http.interceptors.request.use(config => {
   return config
 })

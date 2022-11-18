@@ -8,6 +8,8 @@ const cheerio = require('cheerio')
 const fs = require('fs')
 const path = require('path')
 
+const axios = require('axios')
+
 const setFile = (bookName, detailName) => {
   if (fs.existsSync('E:/book/' + bookName)) {
   } else {
@@ -72,7 +74,24 @@ const getBookDetail = async(detailUrl, bookName) => {
   })
 }
 
-module.exports = {
-  search,
-  getFile
+const bookDetail = (id) => {
+  axios.get(`https://yazhouse8.com/article/1.html`).then(res => {
+    console.log(res)
+  }).catch(e => {
+    console.log('eeeee:', e)
+  })
+  // console.log(res)
+  // const detailList = []
+  // const $ = cheerio.load(res)
+  // $('.content').html().split('<br>').map(item => {
+  //   item.toString().replace(/\n/g, '') && detailList.push(item.toString().trim().replace(/\n/g, ''))
+  // })
+  // console.log(detailList)
 }
+
+bookDetail(1 + '')
+
+// module.exports = {
+//   search,
+//   getFile
+// }

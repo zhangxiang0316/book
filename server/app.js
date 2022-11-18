@@ -28,6 +28,7 @@ const corsOptions = {
     if (!ctx.header.referer) { return 'null' }
     const whiteList = ['http://localhost:8088', 'http://127.0.0.1:8088'] // 可跨域白名单
     const url = ctx.header.referer.substr(0, ctx.header.referer.length - 1)
+    console.log(url)
     if (whiteList.includes(url)) {
       return url // 注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
     }
