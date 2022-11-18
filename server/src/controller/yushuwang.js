@@ -7,7 +7,7 @@ const Http = require('../http/yushuwang')
 const cheerio = require('cheerio')
 let cookie = ''
 const search = async(name) => {
-  let res = await Http.get(`https://m.yushubo.net/search.html?ss=${encodeURIComponent(name)}`)
+  let res = await Http.get(`/search.html?ss=${encodeURIComponent(name)}`)
   let $ = cheerio.load(res.toString())
   if (!$('title').text()) {
     $(' script').map(function(i, el) {
